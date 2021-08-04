@@ -16,6 +16,10 @@ parameters:
   displayName: Build on macOS
   type: boolean
   default: true # macOS is often bogged down in Azure Pipelines
+- name: includeLinux
+  displayName: Build on Linux
+  type: boolean
+  default: false # Microsoft Maui does not work on Linux
 
 variables:
   TreatWarningsAsErrors: true
@@ -24,8 +28,15 @@ variables:
   codecov_token: '708953b6-a698-4309-a352-4ac75e1a6eb6'
   ci_feed: '0b324255-c5ad-4e3c-9200-ddfdb61c60e8/400126b2-c448-4328-a1c1-5c0a34907850'
   NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages
+  ${{ if eq(variables['Agent.OS'], 'Windows_NT') }}:
+    test_category: 'Windows'
+  ${{ if eq(variables['Agent.OS'], 'Darwin') }}:
+    test_category: 'MacOS'
+  ${{ if eq(variables['Agent.OS'], 'Linux') }}:
+    test_category: 'Linux'
 
 jobs:
 - template: azure-pipelines/build.yml
   parameters:
     includeMacOS: ${{ parameters.includeMacOS }}
+    includeLinux: ${{ parameters.includeLinux }}

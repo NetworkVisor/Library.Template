@@ -30,6 +30,10 @@
     Skips the package restore step.
 .PARAMETER AccessToken
     An optional access token for authenticating to Azure Artifacts authenticated feeds.
+.PARAMETER InstallMaui
+    Installs the Maui workload.
+.PARAMETER InstallXHarnessTool
+    Installs the XHarness tool.
 #>
 [CmdletBinding(SupportsShouldProcess=$true)]
 Param (
@@ -44,7 +48,11 @@ Param (
     [Parameter()]
     [switch]$NoRestore,
     [Parameter()]
-    [string]$AccessToken
+    [string]$AccessToken,
+    [Parameter()]
+    [switch]$InstallMaui,
+    [Parameter()]
+    [switch]$InstallXHarnessTool
 )
 
 $EnvVars = @{}
@@ -64,6 +72,16 @@ if (!$NoPrerequisites) {
     if ($env:OS -eq 'Windows_NT') {
         $EnvVars['PROCDUMP_PATH'] = & "$PSScriptRoot\azure-pipelines\Get-ProcDump.ps1"
     }
+	
+	# Install the Maui development enviroment
+	if ($InstallMaui) {
+		& "$PSScriptRoot\tools\Install-Maui.ps1"
+	}
+	
+	# Install the XHarness tool to allow testing on devices.
+	if ($InstallXHarnessTool) {
+		& "$PSScriptRoot\tools\Install-XHarnessTool.ps1"
+	}
 }
 
 # Workaround nuget credential provider bug that causes very unreliable package restores on Azure Pipelines

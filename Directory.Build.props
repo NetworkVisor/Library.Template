@@ -34,7 +34,7 @@
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="4.0.0-2.final" PrivateAssets="all" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.220" PrivateAssets="all" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.4.231" PrivateAssets="all" />
     <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="all" />
   </ItemGroup>
 
@@ -50,7 +50,7 @@
   <Target Name="PrepareReleaseNotes" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
     <PropertyGroup>
       <!-- TEMPLATE USER: replace the ORG/REPO (or entire link) below and uncomment. -->
-      <!-- <PackageReleaseNotes>https://github.com/ORG/REPO/releases/tag/v$(Version)</PackageReleaseNotes> -->
+      <!-- <PackageReleaseNotes>https://github.com/NetworkVisor/REPO/releases/tag/v$(Version)</PackageReleaseNotes> -->
     </PropertyGroup>
   </Target>
 
