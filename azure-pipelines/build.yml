@@ -1,14 +1,23 @@
 parameters:
-  windowsPool: Hosted Windows 2019 with VS2019
+  windowsPool: Local Windows
+  jobTimeout : 30
   includeMacOS:
+  includeLinux:
 
 jobs:
 - job: Windows
+  timeoutInMinutes: ${{ parameters.jobTimeout }}
   pool: ${{ parameters.windowsPool }}
   steps:
   - checkout: self
     clean: true
   - template: install-dependencies.yml
+    parameters:
+      initArgs: -InstallMaui -InstallXHarnessTool
+
+  - powershell: '& (./azure-pipelines/Get-XHarnessTool.ps1) android state'
+    displayName: XHarness Android State
+    ignoreLASTEXITCODE: true
 
   - powershell: '& (./azure-pipelines/Get-nbgv.ps1) cloud'
     displayName: Set build number
@@ -17,33 +26,44 @@ jobs:
   - template: expand-template.yml
 
 - job: Linux
+  condition: ${{ parameters.includeLinux }}
+  timeoutInMinutes: ${{ parameters.jobTimeout }}
   pool:
-    vmImage: Ubuntu 20.04
+    vmImage: ubuntu-latest
   steps:
   - checkout: self
     clean: true
   - template: install-dependencies.yml
+
   - template: dotnet.yml
   - template: expand-template.yml
 
 - job: macOS
   condition: ${{ parameters.includeMacOS }}
+  timeoutInMinutes: ${{ parameters.jobTimeout }}
   pool:
-    vmImage: macOS-10.15
+    vmImage: macOS-latest
   steps:
   - checkout: self
     clean: true
   - template: install-dependencies.yml
+    parameters:
+      initArgs: -InstallMaui -InstallXHarnessTool
+      
+  - powershell: '& (./azure-pipelines/Get-XHarnessTool.ps1) apple state'
+    displayName: XHarness Apple State
+
   - template: dotnet.yml
   - template: expand-template.yml
 
 - job: WrapUp
+  timeoutInMinutes: ${{ parameters.jobTimeout }}
   dependsOn:
   - Windows
   - Linux
   - macOS
   pool:
-    vmImage: Ubuntu 20.04
+    vmImage: ubuntu-latest
   condition: succeededOrFailed()
   steps:
   - checkout: self
@@ -54,4 +74,5 @@ jobs:
   - template: publish-codecoverage.yml
     parameters:
       includeMacOS: ${{ parameters.includeMacOS }}
+      includeLinux: ${{ parameters.includeLinux }}
   - template: publish-deployables.yml

@@ -4,9 +4,9 @@
 using Library;
 using Xunit;
 
-public class CalculatorTests
+public class CalculatorIntegrationTests
 {
-    public CalculatorTests()
+    public CalculatorIntegrationTests()
     {
     }
 
