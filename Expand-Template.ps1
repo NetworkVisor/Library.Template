@@ -105,29 +105,43 @@ try {
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     git mv src/Library "src/$LibraryName"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    git mv test/Library.Tests/Library.Tests.csproj "test/Library.Tests/$LibraryName.Tests.csproj"
+    git mv test/Library.UnitTests/Library.UnitTests.csproj "test/Library.UnitTests/$LibraryName.UnitTests.csproj"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    git mv test/Library.Tests "test/$LibraryName.Tests"
+	git mv test/Library.IntegrationTests/Library.IntegrationTests.csproj "test/Library.IntegrationTests/$LibraryName.IntegrationTests.csproj"
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    git mv test/Library.UnitTests "test/$LibraryName.UnitTests"
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+	git mv test/Library.IntegrationTests "test/$LibraryName.IntegrationTests"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
     # Refresh solution file both to update paths and give the projects unique GUIDs
     dotnet sln remove src/Library/Library.csproj
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    dotnet sln remove test/Library.Tests/Library.Tests.csproj
+    dotnet sln remove test/Library.UnitTests/Library.UnitTests.csproj
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    dotnet sln remove test/Library.IntegrationTests/Library.IntegrationTests.csproj
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     dotnet sln add "src/$LibraryName"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    dotnet sln add "test/$LibraryName.Tests"
+    dotnet sln add "test/$LibraryName.UnitTests"
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    dotnet sln add "test/$LibraryName.IntegrationTests"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     git add "$LibraryName.sln"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
     # Update project reference in test project. Add before removal to keep the same ItemGroup in place.
-    dotnet add "test/$LibraryName.Tests" reference "src/$LibraryName"
+    dotnet add "test/$LibraryName.UnitTests" reference "src/$LibraryName"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    dotnet remove "test/$LibraryName.Tests" reference src/Library/Library.csproj
+	dotnet add "test/$LibraryName.IntegrationTests" reference "src/$LibraryName"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    git add "test/$LibraryName.Tests/$LibraryName.Tests.csproj"
+    dotnet remove "test/$LibraryName.UnitTests" reference src/Library/Library.csproj
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    dotnet remove "test/$LibraryName.IntegrationTests" reference src/Library/Library.csproj
+	if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    git add "test/$LibraryName.UnitTests/$LibraryName.UnitTests.csproj"
+	if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    git add "test/$LibraryName.IntegrationTests/$LibraryName.IntegrationTests.csproj"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
     # Establish a new strong-name key
@@ -137,11 +151,15 @@ try {
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
     # Replace placeholders in source files
-    Replace-Placeholders -Path "src/$LibraryName/Calculator.cs" -Replacements @{
+    Replace-Placeholders -Path "src/$LibraryName/Core.cs" -Replacements @{
         'Library'=$LibraryName
         'COMPANY-PLACEHOLDER'=$Author
     }
-    Replace-Placeholders -Path "test/$LibraryName.Tests/CalculatorTests.cs" -Replacements @{
+    Replace-Placeholders -Path "test/$LibraryName.UnitTests/CoreUnitTests.cs" -Replacements @{
+        'Library'=$LibraryName
+        'COMPANY-PLACEHOLDER'=$Author
+    }
+	Replace-Placeholders -Path "test/$LibraryName.IntegrationTests/CoreIntegrationTests.cs" -Replacements @{
         'Library'=$LibraryName
         'COMPANY-PLACEHOLDER'=$Author
     }

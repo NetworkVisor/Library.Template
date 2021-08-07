@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29322.22
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "src\Library\Library.csproj", "{C06D702E-6FC7-453B-BDDF-608F825EC003}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.Tests", "test\Library.Tests\Library.Tests.csproj", "{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.UnitTests", "test\Library.UnitTests\Library.UnitTests.csproj", "{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1CE9670B-D5FF-46A7-9D00-24E70E6ED48B}"
 	ProjectSection(SolutionItems) = preProject
@@ -141,6 +141,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "platforms", "platforms", "{
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devices", "devices", "{DCAD95FF-7FA9-43C0-8A39-72E5BFDC85AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B2E7BFF3-4EDB-4A21-8A20-BC390335F7BA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{627BAEEC-777B-4293-93F0-3624B90628C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
