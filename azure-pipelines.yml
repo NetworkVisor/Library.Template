@@ -25,8 +25,8 @@ variables:
   TreatWarningsAsErrors: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   BuildConfiguration: Release
-  codecov_token: '708953b6-a698-4309-a352-4ac75e1a6eb6'
-  ci_feed: '0b324255-c5ad-4e3c-9200-ddfdb61c60e8/400126b2-c448-4328-a1c1-5c0a34907850'
+  codecov_token: '95ec3b26-d5d3-48c8-a9c8-251b4263481b'
+  ci_feed: '10ca7a1d-d4ca-4b7c-a7fa-1a0eba42a26b'
   NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages
   ${{ if eq(variables['Agent.OS'], 'Windows_NT') }}:
     test_category: 'Windows'
