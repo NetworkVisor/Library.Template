@@ -22,7 +22,7 @@
 
     <Company>BushChang Corporation</Company>
     <Authors>Steve Bush</Authors>
-    <Copyright>Â© BushChang Corporation. All rights reserved.</Copyright>
+    <Copyright>© BushChang Corporation. All rights reserved.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
