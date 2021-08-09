@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="PureActive.Core.Test.XUnit" Version="1.2.1" />
+    <PackageReference Include="NetworkVisor.Core.Test" Version="1.3.5-beta" />
   </ItemGroup>
 
 </Project>

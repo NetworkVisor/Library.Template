@@ -1,23 +1,24 @@
 ﻿// Copyright (c) COMPANY-PLACEHOLDER. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using Library;
-using Xunit;
-
-public class CalculatorUnitTests
+namespace LIBRARY
 {
-    public CalculatorUnitTests()
-    {
-    }
+    using LIBRARY;
+    using NetworkVisor.Core.Test;
+    using NetworkVisor.Core.Test.XUnit;
+    using NetworkVisor.Core.Logging;
 
-    [Fact]
-    public void AddOrSubtract()
+    [PlatformTrait(typeof(CalculatorUnitTests))]
+    public class CalculatorUnitTests
     {
-        // This tests aggregation of code coverage across test runs.
-#if NETCOREAPP2_1
-        Assert.Equal(3, Calculator.Add(1, 2));
-#else
-        Assert.Equal(-1, Calculator.Subtract(1, 2));
-#endif
+        public CalculatorUnitTests()
+        {
+        }
+
+        [Fact]
+        public void CalculatorUnit_AddOrSubtract()
+        {
+
+        }
     }
 }
