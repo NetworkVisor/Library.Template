@@ -37,6 +37,17 @@ namespace LIBRARY.UnitTests
         }
 
         [Fact]
+        public void CalculatorUnitTest()
+        {
+            // This tests aggregation of code coverage across test runs.
+#if NETCOREAPP2_1
+            Calculator.Add(1, 2).Should().Be(3);
+#else
+            Calculator.Subtract(1, 2).Should().Be(-1);
+#endif
+        }
+
+        [Fact]
         public void HasPlatformTraitAttribute()
         {
             this.testType.HasPlatformTraitAttribute().Should().BeTrue();
