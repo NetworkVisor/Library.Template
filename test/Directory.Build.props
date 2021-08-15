@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="NetworkVisor.Core.Test" Version="1.3.5-beta" />
+    <None Include="$(RepoRootPath)\test\app.config" Pack="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.0.0" />
+    <PackageReference Include="NetworkVisor.Core" Version="2.1.0-prerelease" />
+    <PackageReference Include="NetworkVisor.Core.Test" Version="2.1.0-prerelease" />
   </ItemGroup>
 
 </Project>

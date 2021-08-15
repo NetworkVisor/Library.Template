@@ -13,7 +13,8 @@ env:
   BUILDCONFIGURATION: Release
   codecov_token: 4dc9e7e2-6b01-4932-a180-847b52b43d35 # Get a new one from https://codecov.io/
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
-  NETWORKVISOR_BUILD_PAT: ${{ secrets.NETWORK_VISOR_SYSTEM_TOKEN }}
+  NUGET_NAME: 'networkvisor-eng'
+  NUGET_URL: 'https://pkgs.dev.azure.com/NetworkVisor/_packaging/networkvisor-eng/nuget/v3/index.json'
 
 jobs:
   build:
@@ -32,15 +33,16 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+       
     - name: Install prerequisites on Linux
       run: |
-        ./init.ps1 -UpgradePrerequisites
+        ./init.ps1 -UpgradePrerequisites -UpdateNugetSourceName: ${{ env.NUGET_NAME }} -UpdateNugetSourcePath: ${{ env.NUGET_URL }} -UpdateNugetUserName: NetworkVisor -UpdateNugetPassword: ${{ secrets.NETWORKVISOR_BUILD_PAT }}
         dotnet --info
       shell: pwsh
       if: runner.os == 'Linux'
     - name: Install prerequisites on Win/Mac
       run: |
-        ./init.ps1 -UpgradePrerequisites -InstallMaui -InstallXHarnessTool
+        ./init.ps1 -UpgradePrerequisites -InstallMaui -InstallXHarnessTool -UpdateNugetSourceName: ${{ env.NUGET_NAME }} -UpdateNugetSourcePath: ${{ env.NUGET_URL }} -UpdateNugetUserName: NetworkVisor -UpdateNugetPassword: ${{ secrets.NETWORKVISOR_BUILD_PAT }}
         dotnet --info
       shell: pwsh
       if: runner.os != 'Linux'
@@ -136,3 +138,8 @@ jobs:
       shell: bash
       timeout-minutes: 3
       continue-on-error: true
+    - name: Cleanup Nuget Source
+      if: always()
+      continue-on-error: true
+      run: |
+        dotnet nuget remove source networkvisor-eng
