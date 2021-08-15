@@ -23,6 +23,7 @@ if (!(Test-Path $toolInstallDir)) { New-Item -Path $toolInstallDir -ItemType Dir
 if (!(Get-Command $toolInstallDir -ErrorAction SilentlyContinue)) {
     Write-Host "Installing maui-check to $toolInstallDir"
     dotnet tool install redth.net.maui.check --tool-path "$toolInstallDir"
+	dotnet tool update Redth.Net.Maui.Check --tool-path "$toolInstallDir"
 	$mauiCheckCmd = & "$PSScriptRoot\..\azure-pipelines\Get-MauiCheckTool.ps1"
 	& $mauiCheckCmd --ci --non-interactive --fix
 }

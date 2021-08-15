@@ -34,6 +34,10 @@
     Installs the Maui workload.
 .PARAMETER InstallXHarnessTool
     Installs the XHarness tool.
+.PARAMETER PrivateNugetSourceUrl
+    URL of the private Nuget source
+.PARAMETER PrivateNugetSourcePassword
+    Password of the private Nuget source
 #>
 [CmdletBinding(SupportsShouldProcess=$true)]
 Param (
@@ -52,7 +56,15 @@ Param (
     [Parameter()]
     [switch]$InstallMaui,
     [Parameter()]
-    [switch]$InstallXHarnessTool
+    [switch]$InstallXHarnessTool,
+    [Parameter()]
+    [string]$UpdateNugetSourceName,
+    [Parameter()]
+    [string]$UpdateNugetSourcePath,
+    [Parameter()]
+    [string]$UpdateNugetUserName,
+    [Parameter()]
+    [string]$UpdateNugetPassword
 )
 
 $EnvVars = @{}
@@ -65,6 +77,11 @@ if (!$NoPrerequisites) {
     & "$PSScriptRoot\tools\Install-DotNetSdk.ps1" -InstallLocality $InstallLocality
     if ($LASTEXITCODE -eq 3010) {
         Exit 3010
+    }
+    
+    # Update a Nuget source
+    if ($UpdateNugetSourceName) {
+        & "$PSScriptRoot\tools\Update-NugetSource.ps1" -UpdateNugetSourceName: $UpdateNugetSourceName -UpdateNugetSourcePath: $UpdateNugetSourcePath -UpdateNugetUserName: $UpdateNugetUserName -UpdateNugetPassword: $UpdateNugetPassword
     }
 
     # The procdump tool and env var is required for dotnet test to collect hang/crash dumps of tests.
