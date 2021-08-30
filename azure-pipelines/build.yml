@@ -15,14 +15,14 @@ jobs:
     parameters:
       initArgs: -InstallMaui -InstallXHarnessTool
 
-  - powershell: '& (./azure-pipelines/Get-XHarnessTool.ps1) android state'
-    displayName: XHarness Android State
-    ignoreLASTEXITCODE: true
-
   - powershell: '& (./azure-pipelines/Get-nbgv.ps1) cloud'
     displayName: Set build number
 
   - template: dotnet.yml
+    parameters:
+      test_filter: '--filter "Category=Windows"'
+      build_configuration: 'Release-Windows'
+
   - template: expand-template.yml
 
 - job: Linux
@@ -34,8 +34,14 @@ jobs:
   - checkout: self
     clean: true
   - template: install-dependencies.yml
+    parameters:
+      initArgs: -InstallXHarnessTool -NoRestore
 
   - template: dotnet.yml
+    parameters:
+      test_filter: '--filter "Category=Linux"'
+      build_configuration: 'Release-Linux'
+
   - template: expand-template.yml
 
 - job: macOS
@@ -50,10 +56,11 @@ jobs:
     parameters:
       initArgs: -InstallMaui -InstallXHarnessTool
       
-  - powershell: '& (./azure-pipelines/Get-XHarnessTool.ps1) apple state'
-    displayName: XHarness Apple State
-
   - template: dotnet.yml
+    parameters:
+      test_filter: '--filter "Category=MacOS"'
+      build_configuration: 'Release-MacOS'
+
   - template: expand-template.yml
 
 - job: WrapUp

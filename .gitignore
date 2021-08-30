@@ -346,3 +346,7 @@ MigrationBackup/
 
 # dotnet tool local install directory
 .store/
+
+# iCloud files
+*.icloud
+

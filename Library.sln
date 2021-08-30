@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29322.22
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "src\core\Library\Library.csproj", "{C06D702E-6FC7-453B-BDDF-608F825EC003}"
 EndProject
@@ -28,20 +28,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		strongname.snk = strongname.snk
 		stylecop.json = stylecop.json
 		version.json = version.json
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9E154A29-1796-4B85-BD81-B6A385D8FF71}"
-	ProjectSection(SolutionItems) = preProject
-		src\.editorconfig = src\.editorconfig
-		src\Directory.Build.props = src\Directory.Build.props
-		src\Directory.Build.targets = src\Directory.Build.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{36CCE840-6FE5-4DB9-A8D5-8CF3CB6D342A}"
-	ProjectSection(SolutionItems) = preProject
-		test\.editorconfig = test\.editorconfig
-		test\Directory.Build.props = test\Directory.Build.props
-		test\Directory.Build.targets = test\Directory.Build.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "eng", "eng", "{D0F63F04-0FDB-41C2-89EB-D2004E5D07F2}"
@@ -121,58 +107,100 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "variables", "variables", "{
 		azure-pipelines\variables\DotNetSdkVersion.ps1 = azure-pipelines\variables\DotNetSdkVersion.ps1
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{8157B4AA-A301-4DC5-8BC4-7E8671344B7B}"
-	ProjectSection(SolutionItems) = preProject
-		src\platforms\Directory.Build.props = src\platforms\Directory.Build.props
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "platforms", "platforms", "{F2390373-F8C4-4877-B8F4-AE9107518F98}"
-	ProjectSection(SolutionItems) = preProject
-		src\platforms\Directory.Build.props = src\platforms\Directory.Build.props
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{3086D29D-4138-4A92-B52F-B72BA3721CB1}"
-	ProjectSection(SolutionItems) = preProject
-		test\core\Directory.Build.props = test\core\Directory.Build.props
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "platforms", "platforms", "{F5F8859D-D02D-47A6-9906-E651A5E00155}"
-	ProjectSection(SolutionItems) = preProject
-		test\platforms\Directory.Build.props = test\platforms\Directory.Build.props
-		test\platforms\Directory.Build.targets = test\platforms\Directory.Build.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devices", "devices", "{DCAD95FF-7FA9-43C0-8A39-72E5BFDC85AF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B2E7BFF3-4EDB-4A21-8A20-BC390335F7BA}"
+	ProjectSection(SolutionItems) = preProject
+		src\.editorconfig = src\.editorconfig
+		src\Directory.Build.props = src\Directory.Build.props
+		src\Directory.Build.targets = src\Directory.Build.targets
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{627BAEEC-777B-4293-93F0-3624B90628C4}"
+	ProjectSection(SolutionItems) = preProject
+		test\.editorconfig = test\.editorconfig
+		test\app.config = test\app.config
+		test\Directory.Build.props = test\Directory.Build.props
+		test\Directory.Build.targets = test\Directory.Build.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug-Android|Any CPU = Debug-Android|Any CPU
+		Debug-Linux|Any CPU = Debug-Linux|Any CPU
+		Debug-MacOS|Any CPU = Debug-MacOS|Any CPU
+		Debug-Windows|Any CPU = Debug-Windows|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Release-Android|Any CPU = Release-Android|Any CPU
+		Release-Linux|Any CPU = Release-Linux|Any CPU
+		Release-MacOS|Any CPU = Release-MacOS|Any CPU
+		Release-Windows|Any CPU = Release-Windows|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug-Android|Any CPU.ActiveCfg = Debug-Android|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug-Android|Any CPU.Build.0 = Debug-Android|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug-Linux|Any CPU.ActiveCfg = Debug-Linux|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug-Linux|Any CPU.Build.0 = Debug-Linux|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug-MacOS|Any CPU.ActiveCfg = Debug-MacOS|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug-MacOS|Any CPU.Build.0 = Debug-MacOS|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug-Windows|Any CPU.ActiveCfg = Debug-Windows|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Debug-Windows|Any CPU.Build.0 = Debug-Windows|Any CPU
 		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release-Android|Any CPU.ActiveCfg = Release-Android|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release-Android|Any CPU.Build.0 = Release-Android|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release-Linux|Any CPU.ActiveCfg = Release-Linux|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release-Linux|Any CPU.Build.0 = Release-Linux|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release-MacOS|Any CPU.ActiveCfg = Release-MacOS|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release-MacOS|Any CPU.Build.0 = Release-MacOS|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release-Windows|Any CPU.ActiveCfg = Release-Windows|Any CPU
+		{C06D702E-6FC7-453B-BDDF-608F825EC003}.Release-Windows|Any CPU.Build.0 = Release-Windows|Any CPU
 		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug-Android|Any CPU.ActiveCfg = Debug-Android|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug-Android|Any CPU.Build.0 = Debug-Android|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug-Linux|Any CPU.ActiveCfg = Debug-Linux|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug-Linux|Any CPU.Build.0 = Debug-Linux|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug-MacOS|Any CPU.ActiveCfg = Debug-MacOS|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug-MacOS|Any CPU.Build.0 = Debug-MacOS|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug-Windows|Any CPU.ActiveCfg = Debug-Windows|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Debug-Windows|Any CPU.Build.0 = Debug-Windows|Any CPU
 		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release-Android|Any CPU.ActiveCfg = Release-Android|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release-Android|Any CPU.Build.0 = Release-Android|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release-Linux|Any CPU.ActiveCfg = Release-Linux|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release-Linux|Any CPU.Build.0 = Release-Linux|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release-MacOS|Any CPU.ActiveCfg = Release-MacOS|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release-MacOS|Any CPU.Build.0 = Release-MacOS|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release-Windows|Any CPU.ActiveCfg = Release-Windows|Any CPU
+		{DC5F3D1C-A9A3-44B7-A3C0-82C1FF4C3336}.Release-Windows|Any CPU.Build.0 = Release-Windows|Any CPU
 		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug-Android|Any CPU.ActiveCfg = Debug-Android|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug-Android|Any CPU.Build.0 = Debug-Android|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug-Linux|Any CPU.ActiveCfg = Debug-Linux|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug-Linux|Any CPU.Build.0 = Debug-Linux|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug-MacOS|Any CPU.ActiveCfg = Debug-MacOS|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug-MacOS|Any CPU.Build.0 = Debug-MacOS|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug-Windows|Any CPU.ActiveCfg = Debug-Windows|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Debug-Windows|Any CPU.Build.0 = Debug-Windows|Any CPU
 		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release-Android|Any CPU.ActiveCfg = Release-Android|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release-Android|Any CPU.Build.0 = Release-Android|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release-Linux|Any CPU.ActiveCfg = Release-Linux|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release-Linux|Any CPU.Build.0 = Release-Linux|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release-MacOS|Any CPU.ActiveCfg = Release-MacOS|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release-MacOS|Any CPU.Build.0 = Release-MacOS|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release-Windows|Any CPU.ActiveCfg = Release-Windows|Any CPU
+		{0BD55E69-FF20-4554-8411-763E0124E91B}.Release-Windows|Any CPU.Build.0 = Release-Windows|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9E154A29-1796-4B85-BD81-B6A385D8FF71} = {1CE9670B-D5FF-46A7-9D00-24E70E6ED48B}
-		{36CCE840-6FE5-4DB9-A8D5-8CF3CB6D342A} = {1CE9670B-D5FF-46A7-9D00-24E70E6ED48B}
 		{D0F63F04-0FDB-41C2-89EB-D2004E5D07F2} = {1CE9670B-D5FF-46A7-9D00-24E70E6ED48B}
 		{9D838577-A1C7-4A5D-B5EF-7E300FDDD016} = {D0F63F04-0FDB-41C2-89EB-D2004E5D07F2}
 		{FC5CE323-2E9A-479A-B8E8-E5999A44A925} = {D0F63F04-0FDB-41C2-89EB-D2004E5D07F2}
@@ -181,11 +209,6 @@ Global
 		{9A37BDB0-AE53-493C-B418-EFADEF755110} = {FC5CE323-2E9A-479A-B8E8-E5999A44A925}
 		{788362BC-D7B0-4D52-896A-A9BACDB1B71A} = {ECCE870F-5368-4208-A7F7-9FFEFA44BDF6}
 		{2D97BEB0-D6B4-4216-861D-CA63F4BEE5E7} = {ECCE870F-5368-4208-A7F7-9FFEFA44BDF6}
-		{8157B4AA-A301-4DC5-8BC4-7E8671344B7B} = {9E154A29-1796-4B85-BD81-B6A385D8FF71}
-		{F2390373-F8C4-4877-B8F4-AE9107518F98} = {9E154A29-1796-4B85-BD81-B6A385D8FF71}
-		{3086D29D-4138-4A92-B52F-B72BA3721CB1} = {36CCE840-6FE5-4DB9-A8D5-8CF3CB6D342A}
-		{F5F8859D-D02D-47A6-9906-E651A5E00155} = {36CCE840-6FE5-4DB9-A8D5-8CF3CB6D342A}
-		{DCAD95FF-7FA9-43C0-8A39-72E5BFDC85AF} = {36CCE840-6FE5-4DB9-A8D5-8CF3CB6D342A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E3944F6A-384B-4B0F-B93F-3BD513DC57BD}

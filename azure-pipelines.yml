@@ -19,21 +19,22 @@ parameters:
 - name: includeLinux
   displayName: Build on Linux
   type: boolean
-  default: false # Microsoft Maui does not work on Linux
+  default: true 
 
 variables:
   TreatWarningsAsErrors: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  BuildConfiguration: Release
-  codecov_token: '95ec3b26-d5d3-48c8-a9c8-251b4263481b'
-  ci_feed: '10ca7a1d-d4ca-4b7c-a7fa-1a0eba42a26b'
-  NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages
   ${{ if eq(variables['Agent.OS'], 'Windows_NT') }}:
     test_category: 'Windows'
   ${{ if eq(variables['Agent.OS'], 'Darwin') }}:
     test_category: 'MacOS'
   ${{ if eq(variables['Agent.OS'], 'Linux') }}:
     test_category: 'Linux'
+  BuildConfiguration: Release-Windows
+  codecov_token: '95ec3b26-d5d3-48c8-a9c8-251b4263481b'
+  ci_feed: '10ca7a1d-d4ca-4b7c-a7fa-1a0eba42a26b'
+  NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages
+
 
 jobs:
 - template: azure-pipelines/build.yml

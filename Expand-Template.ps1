@@ -151,15 +151,15 @@ try {
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
     # Replace placeholders in source files
-    Replace-Placeholders -Path "src/core/$LibraryName/Core.cs" -Replacements @{
+    Replace-Placeholders -Path "src/core/$LibraryName/Core.shared.cs" -Replacements @{
         'Library'=$LibraryName
         'COMPANY-PLACEHOLDER'=$Author
     }
-    Replace-Placeholders -Path "test/core/$LibraryName.UnitTests/CoreUnitTests.cs" -Replacements @{
+    Replace-Placeholders -Path "test/core/$LibraryName.UnitTests/CoreUnitTests.shared.cs" -Replacements @{
         'Library'=$LibraryName
         'COMPANY-PLACEHOLDER'=$Author
     }
-	Replace-Placeholders -Path "test/core/$LibraryName.IntegrationTests/CoreIntegrationTests.cs" -Replacements @{
+	Replace-Placeholders -Path "test/core/$LibraryName.IntegrationTests/CoreIntegrationTests.shared.cs" -Replacements @{
         'Library'=$LibraryName
         'COMPANY-PLACEHOLDER'=$Author
     }
