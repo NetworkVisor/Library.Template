@@ -1,11 +1,12 @@
 <Project>
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configurations>Debug;Debug-Windows;Release-Windows;Debug-MacOS;Release-MacOS;Debug-Linux;Release-Linux;Debug-Android;Release-Android</Configurations>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug-Windows</Configuration>
     <RepoRootPath>$(MSBuildThisFileDirectory)</RepoRootPath>
     <BaseIntermediateOutputPath>$(RepoRootPath)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
     <PackageOutputPath>$(RepoRootPath)bin\Packages\$(Configuration)\</PackageOutputPath>
-    <PackageIcon>NetworkVisorCorePackage.jpg</PackageIcon>
+    <PackageIcon>images\icon.png</PackageIcon>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <AnalysisLevel>latest</AnalysisLevel>
@@ -14,12 +15,10 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
 
     <!-- Local builds should embed PDBs so we never lose them when a subsequent build occurs. -->
     <DebugType Condition=" '$(CI)' != 'true' and '$(TF_BUILD)' != 'true' ">embedded</DebugType>
-
-    <!-- Disable CodeStyleInBuild until fixed. -->
-    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
 
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)\strongname.snk</AssemblyOriginatorKeyFile>
@@ -35,7 +34,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(RepoRootPath)\images\NetworkVisorCorePackage.jpg" Pack="true" PackagePath="\"/>
+    <None Include="$(RepoRootPath)\images\NetworkVisorCorePackage.png" Pack="true" PackagePath="\images\icon.png"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -57,8 +56,7 @@
 
   <Target Name="PrepareReleaseNotes" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
     <PropertyGroup>
-      <!-- TEMPLATE USER: replace the ORG/REPO (or entire link) below and uncomment. -->
-      <!-- <PackageReleaseNotes>https://github.com/NetworkVisor/REPO/releases/tag/v$(Version)</PackageReleaseNotes> -->
+      <PackageReleaseNotes>https://github.com/NetworkVisor/NetworkVisor.Core/releases/tag/v$(Version)</PackageReleaseNotes>
     </PropertyGroup>
   </Target>
 

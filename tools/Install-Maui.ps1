@@ -12,8 +12,8 @@ Param (
 
 $envVars = @{}
 
-Write-Host "Installing maui workload"
-dotnet workload install maui
+#Write-Host "Installing maui workload"
+#dotnet workload install maui
 
 $toolInstallDir = & "$PSScriptRoot\..\azure-pipelines\Get-TempToolsPath.ps1"
 
