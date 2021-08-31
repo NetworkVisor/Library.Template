@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <Configurations>Debug;Debug-Windows;Release-Windows;Debug-MacOS;Release-MacOS;Debug-Linux;Release-Linux;Debug-Android;Release-Android</Configurations>
+    <Configurations>Debug;Debug-Windows;Release-Windows;Debug-MacOS;Release-MacOS;Debug-Linux;Release-Linux;Debug-Android;Release-Android;Debug-IOS;Release-IOS;Debug-MacCatalyst;Release-MacCatalyst</Configurations>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug-Windows</Configuration>
     <RepoRootPath>$(MSBuildThisFileDirectory)</RepoRootPath>
     <BaseIntermediateOutputPath>$(RepoRootPath)obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
