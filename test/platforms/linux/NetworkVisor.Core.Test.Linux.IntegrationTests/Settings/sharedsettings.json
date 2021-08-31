@@ -1,0 +1,13 @@
+﻿{
+    "AllowedHosts": "*",
+
+    "Serilog": {
+        "MinimumLevel": {
+            "Default": "Debug",
+            "Override": {
+                "Microsoft": "Information",
+                "System": "Information"
+            }
+        }
+    }
+}
