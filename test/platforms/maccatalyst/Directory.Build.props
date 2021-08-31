@@ -2,9 +2,10 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))\Directory.Build.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))' != '' " />
   
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;netcoreapp2.1;net6.0;</TargetFrameworks>
-    <!--<TargetFrameworks>net6.0-maccatalyst;</TargetFrameworks>
-    <RuntimeIdentifier>maccatalyst-x64</RuntimeIdentifier>-->
+    <!--<TargetFrameworks>netcoreapp3.1;netcoreapp2.1;net6.0;</TargetFrameworks>-->
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworks>net6.0-maccatalyst;</TargetFrameworks>
+    <RuntimeIdentifier>maccatalyst-x64</RuntimeIdentifier>
   </PropertyGroup>
   
 </Project>
