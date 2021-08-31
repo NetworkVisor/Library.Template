@@ -1,0 +1,103 @@
+// ***********************************************************************
+// Assembly         : NetworkVisor.Core.Shared.IntegrationTests
+// Author           : SteveBu
+// Created          : 04-20-2020
+//
+// Last Modified By : SteveBu
+// Last Modified On : 04-20-2020
+// ***********************************************************************
+// <copyright file="CoreIntegrationTests.shared.cs" company="BushChang Corporation">
+//     Copyright (c) BushChang Corporation. All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+namespace NetworkVisor.Core.Shared.IntegrationTests
+{
+    using FluentAssertions;
+    using NetworkVisor.Core.CoreSystem;
+    using NetworkVisor.Core.Test;
+    using NetworkVisor.Core.Test.XUnit.Extensions;
+    using NetworkVisor.Core.Test.XUnit.Traits;
+    using Xunit;
+    using Xunit.Abstractions;
+
+
+    /// <summary>
+    /// Class CoreIntegrationTests.
+    /// </summary>
+    [PlatformTrait(typeof(CoreIntegrationTests))]
+    public class CoreIntegrationTests : CoreTestBase<CoreIntegrationTests, CoreTestFixture<CoreIntegrationTests>>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CoreIntegrationTests"/> test class.
+        /// </summary>
+        /// <param name="testOutputHelper">The test output helper used to output to tests.</param>
+        /// <param name="testFixture">Test fixture common across all tests.</param>
+        public CoreIntegrationTests(ITestOutputHelper testOutputHelper, CoreTestFixture<CoreIntegrationTests> testFixture)
+            : base(testOutputHelper, testFixture)
+        {
+
+        }
+
+        [Fact]
+        public void CoreLoggingIntegration_ValidateTestClass()
+        {
+            this.ValidateTestClass(TraitOperatingSystem.Core, TraitTestType.Integration);
+        }
+
+        [Fact]
+        public void HasPlatformTraitAttribute()
+        {
+            this.TestClassType.HasPlatformTraitAttribute().Should().BeTrue();
+        }
+
+        [Fact]
+        public void GetTraitOperatingSystem()
+        {
+            var operatingSystem = new CoreOperatingSystem();
+
+            if (operatingSystem.IsAndroid)
+            {
+                this.TestClassType.GetTraitOperatingSystem().Should().Be(TraitOperatingSystem.Android);
+            }
+            else if (operatingSystem.IsIOS)
+            {
+                this.TestClassType.GetTraitOperatingSystem().Should().Be(TraitOperatingSystem.IOS);
+            }
+            else if (operatingSystem.IsMacCatalyst)
+            {
+                this.TestClassType.GetTraitOperatingSystem().Should().Be(TraitOperatingSystem.MacCatalyst);
+            }
+            else if (operatingSystem.IsLinux)
+            {
+                this.TestClassType.GetTraitOperatingSystem().Should().Be(TraitOperatingSystem.Linux);
+            }
+            else if (operatingSystem.IsMacOS)
+            {
+                this.TestClassType.GetTraitOperatingSystem().Should().Be(TraitOperatingSystem.MacOS);
+            }
+            else if (operatingSystem.IsWindows)
+            {
+                this.TestClassType.GetTraitOperatingSystem().Should().Be(TraitOperatingSystem.Windows);
+            }
+            else
+            {
+                Assert.True(false, "Unknown OperatingSystemType");
+            }
+        }
+
+        [Fact]
+        public void GetTraitTestType()
+        {
+            this.TestClassType.GetTraitTestType().Should().Be(TraitTestType.Integration);
+        }
+
+        [Fact]
+        public void OutputTraits()
+        {
+            this.TestOutputHelper.WriteLine($"TestType: {this.TestClassType.GetTraitTestType()}");
+            this.TestOutputHelper.WriteLine($"OS Type: {this.TestClassType.GetTraitOperatingSystem()}");
+        }
+    }
+}

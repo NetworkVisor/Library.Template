@@ -2,8 +2,7 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))\Directory.Build.props" Condition=" '$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory)../, Directory.Build.props))' != '' " />
 
   <PropertyGroup>
-    <TargetFrameworks Condition=" $(Configuration) != 'Debug' ">net6.0-windows;net5.0-windows;net6.0;net5.0;netcoreapp3.1;netcoreapp2.1;net461;</TargetFrameworks>
-    <TargetFrameworks Condition=" $(Configuration) == 'Debug' ">net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;netcoreapp2.1;net6.0;</TargetFrameworks>
+    <!--<TargetFrameworks>net6.0-ios;</TargetFrameworks>-->
   </PropertyGroup>
- 
 </Project>
