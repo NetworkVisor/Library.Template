@@ -6,7 +6,7 @@
 // Last Modified By : SteveBu
 // Last Modified On : 04-20-2020
 // ***********************************************************************
-// <copyright file="CoreAndroidIntegrationTests.cs" company="BushChang Corporation">
+// <copyright file="CoreAndroidIntegrationTests.android.cs" company="BushChang Corporation">
 //     Copyright (c) BushChang Corporation. All rights reserved.
 //     Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>

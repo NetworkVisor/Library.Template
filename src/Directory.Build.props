@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks Condition=" $(Configuration) != 'Debug' ">netstandard2.1;netstandard2.0;net6.0;net6.0-windows;net6.0-android;net6.0-ios;net6.0-maccatalyst;net6.0-macos</TargetFrameworks>
+    <TargetFrameworks Condition=" $(Configuration) != 'Debug' ">netstandard2.1;netstandard2.0;net6.0;net6.0-windows;net5.0-windows;net6.0-android;net6.0-ios;net6.0-maccatalyst;net6.0-macos;net461;</TargetFrameworks>
     <TargetFrameworks Condition=" $(Configuration) == 'Debug' ">netstandard2.1;</TargetFrameworks>
     <!--<TargetFrameworks>netstandard2.1;netstandard2.0;net6.0;net6.0-windows;net6.0-android;net6.0-ios;net6.0-maccatalyst;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;tizen40;Xamarin.Mac20;</TargetFrameworks>-->
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -17,6 +17,10 @@
   <!--Remove platform specific targets on Linux as MAUI isn't supported on Linux-->
   <PropertyGroup Condition="$(Configuration.Contains('-Linux'))">
     <TargetFrameworks>netstandard2.1;netstandard2.0;net6.0;</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('net5.0-windows')) ">
+    <DefineConstants>$(DefineConstants);NET5_0_WINDOWS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

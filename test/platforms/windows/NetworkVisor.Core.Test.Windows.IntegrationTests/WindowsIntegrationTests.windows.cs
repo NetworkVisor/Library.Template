@@ -12,28 +12,43 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-
-using NetworkVisor.Core.Test.XUnit.Traits;
-
 namespace NetworkVisor.Core.Test.Windows.IntegrationTests
 {
     using FluentAssertions;
     using NetworkVisor.Core.Test.XUnit.Extensions;
     using Xunit;
     using Xunit.Abstractions;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Net.NetworkInformation;
+    using Microsoft.Extensions.Logging;
+    using NetworkVisor.Core.Abstractions.Extensions;
+    using NetworkVisor.Core.Logging.Abstractions.LogProperty;
+    using NetworkVisor.Core.Logging.Abstractions.Types;
+    using NetworkVisor.Core.Networking.Abstractions;
+    using NetworkVisor.Core.Networking.Abstractions.AddressInfo;
+    using NetworkVisor.Core.Networking.NetworkInterface;
+    using NetworkVisor.Core.Test.XUnit.Traits;
+    using NetworkVisor.Core.Networking.Abstractions.Extensions;
+
 
     /// <summary>
     /// Class WindowsIntegrationTests.
     /// </summary>
     [PlatformTrait(typeof(WindowsIntegrationTests))]
-    public class WindowsIntegrationTests : CoreTestBase<WindowsIntegrationTests, CoreTestFixture<WindowsIntegrationTests>>
+    public class
+        WindowsIntegrationTests : CoreTestBase<WindowsIntegrationTests, CoreTestFixture<WindowsIntegrationTests>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WindowsIntegrationTests"/> test class.
         /// </summary>
         /// <param name="testOutputHelper">The test output helper used to output to tests.</param>
         /// <param name="testFixture">Test fixture common across all tests.</param>
-        public WindowsIntegrationTests(ITestOutputHelper testOutputHelper, CoreTestFixture<WindowsIntegrationTests> testFixture)
+        public WindowsIntegrationTests(ITestOutputHelper testOutputHelper,
+            CoreTestFixture<WindowsIntegrationTests> testFixture)
             : base(testOutputHelper, testFixture)
         {
 

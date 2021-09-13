@@ -17,14 +17,6 @@ steps:
   displayName: dotnet pack
 
 - task: DotNetCoreCLI@2
-  displayName: dotnet test -f net461
-  inputs:
-    command: test
-    arguments: -c ${{ parameters.build_configuration }} -f net461 ${{ parameters.test_filter }} -v n /p:CollectCoverage=true --settings "$(Build.Repository.LocalPath)/azure-pipelines/$(Agent.OS).runsettings" /bl:"$(Build.ArtifactStagingDirectory)/build_logs/test_net461.binlog"
-    testRunTitle: net461-$(Agent.JobName)
-  condition: succeededOrFailed()
-
-- task: DotNetCoreCLI@2
   displayName: dotnet test -f netcoreapp2.1
   inputs:
     command: test
@@ -57,6 +49,14 @@ steps:
   condition: succeededOrFailed()
 
 - task: DotNetCoreCLI@2
+  displayName: dotnet test -f net461
+  inputs:
+    command: test
+    arguments: -c ${{ parameters.build_configuration }} -f net461 ${{ parameters.test_filter }} -v n /p:CollectCoverage=true --settings "$(Build.Repository.LocalPath)/azure-pipelines/$(Agent.OS).runsettings" /bl:"$(Build.ArtifactStagingDirectory)/build_logs/test_net461.binlog"
+    testRunTitle: net461-$(Agent.JobName)
+  condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT')) # Run on Windows_NT agents only
+
+- task: DotNetCoreCLI@2
   displayName: dotnet test -f net5.0-windows
   inputs:
     command: test
@@ -71,6 +71,14 @@ steps:
     arguments: -c ${{ parameters.build_configuration }} -f net6.0-windows ${{ parameters.test_filter }} -v n /p:CollectCoverage=true --settings "$(Build.Repository.LocalPath)/azure-pipelines/$(Agent.OS).runsettings" /bl:"$(Build.ArtifactStagingDirectory)/build_logs/test_net6.0_windows.binlog"
     testRunTitle: net6.0-windows-$(Agent.JobName)
   condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Windows_NT')) # Run on Windows_NT agents only
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet test -f net6.0-macos
+  inputs:
+    command: test
+    arguments: -c ${{ parameters.build_configuration }} -f net6.0-macos ${{ parameters.test_filter }} -v n /p:CollectCoverage=true --settings "$(Build.Repository.LocalPath)/azure-pipelines/$(Agent.OS).runsettings" /bl:"$(Build.ArtifactStagingDirectory)/build_logs/test_net6.0_macos.binlog"
+    testRunTitle: net6.0-macos-$(Agent.JobName)
+  condition: and(succeededOrFailed(), eq(variables['Agent.OS'], 'Darwin')) # Run on MacOS (Darwin) agents only
 
 - powershell: azure-pipelines/variables/_pipelines.ps1
   failOnStderr: true

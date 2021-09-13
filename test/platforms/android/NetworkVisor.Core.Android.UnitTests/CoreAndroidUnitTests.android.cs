@@ -32,7 +32,8 @@ namespace NetworkVisor.Core.Android.UnitTests
         /// </summary>
         /// <param name="testOutputHelper">The test output helper used to output to tests.</param>
         /// <param name="testFixture">Test fixture common across all tests.</param>
-        public CoreAndroidUnitTests(ITestOutputHelper testOutputHelper, CoreTestFixture<CoreAndroidUnitTests> testFixture)
+        public CoreAndroidUnitTests(ITestOutputHelper testOutputHelper,
+            CoreTestFixture<CoreAndroidUnitTests> testFixture)
             : base(testOutputHelper, testFixture)
         {
 
