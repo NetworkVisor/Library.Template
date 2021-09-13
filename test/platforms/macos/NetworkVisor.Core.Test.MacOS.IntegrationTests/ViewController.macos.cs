@@ -1,23 +1,32 @@
-namespace NetworkVisor.Core.Test.MacOS.IntegrationTests;
+using System;
+using AppKit;
+using Foundation;
 
-public partial class ViewController : NSViewController {
-	public ViewController (IntPtr handle) : base (handle)
+namespace NetworkVisor.Core.Test.MacOS.IntegrationTests
+{
+    public partial class ViewController : NSViewController
+    {
+        public ViewController(IntPtr handle) : base(handle)
 	{
 	}
 
-	public override void ViewDidLoad ()
+        public override void ViewDidLoad()
 	{
-		base.ViewDidLoad ();
+            base.ViewDidLoad();
 
 		// Do any additional setup after loading the view.
 	}
 
-	public override NSObject RepresentedObject {
-		get => base.RepresentedObject;
-		set {
+        public override NSObject RepresentedObject
+        {
+	    get => base.RepresentedObject;
+            set
+            {
 			base.RepresentedObject = value;
 
 			// Update the view, if already loaded.
 		}
 	}
+    }
 }
+

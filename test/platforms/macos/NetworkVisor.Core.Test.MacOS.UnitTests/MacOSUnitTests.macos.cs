@@ -12,12 +12,12 @@
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
-
 namespace NetworkVisor.Core.Test.MacOS.UnitTests
 {
     using System;
     using FluentAssertions;
     using NetworkVisor.Core.Test;
+    using NetworkVisor.Core.Test.XUnit.Traits;
     using NetworkVisor.Core.Test.XUnit.Extensions;
     using Xunit;
     using Xunit.Abstractions;
