@@ -59,8 +59,6 @@ jobs:
       run: dotnet build -c ${{ env.BUILDCONFIGURATION }} /v:m /bl:"bin/build_logs/build.binlog"
     - name: pack
       run: dotnet pack -c ${{ env.BUILDCONFIGURATION }} /v:m /bl:"bin/build_logs/pack.binlog"
-    - name: test netcoreapp2.1
-      run: dotnet test -f netcoreapp2.1 -c ${{ env.BUILDCONFIGURATION }} /bl:"bin/build_logs/test_netcoreapp21.binlog" --filter "Category=NetCore|Category=${{ runner.os }}" -v n /p:CollectCoverage=true --logger trx --settings "${{ github.workspace }}/.github/workflows/${{ runner.os }}.runsettings"
     - name: test netcoreapp3.1
       run: dotnet test -f netcoreapp3.1 -c ${{ env.BUILDCONFIGURATION }} /bl:"bin/build_logs/test_netcoreapp31.binlog" --filter "Category=NetCore|Category=${{ runner.os }}" -v n /p:CollectCoverage=true --logger trx --settings "${{ github.workspace }}/.github/workflows/${{ runner.os }}.runsettings"
     - name: test net5.0
