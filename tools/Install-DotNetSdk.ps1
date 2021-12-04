@@ -29,8 +29,11 @@ $DotNetInstallScriptRoot = Resolve-Path $DotNetInstallScriptRoot
 # Look up actual required .NET Core SDK version from global.json
 $sdkVersion = & "$PSScriptRoot/../azure-pipelines/variables/DotNetSdkVersion.ps1"
 
-$arch = 'x64'
-if ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64') { $arch = 'ARM64' }
+$arch = [System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture
+if (!$arch) { # Windows Powershell leaves this blank
+    $arch = 'x64'
+    if ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64') { $arch = 'ARM64' }
+}
 
 # Search for all .NET Core runtime versions referenced from MSBuild projects and arrange to install them.
 $runtimeVersions = @()
@@ -47,7 +50,7 @@ Get-ChildItem "$PSScriptRoot\..\src\*.*proj","$PSScriptRoot\..\test\*.*proj","$P
             }
         }
     }
-    $targetFrameworks |? { $_ -match 'netcoreapp(\d+\.\d+)' } |% {
+    $targetFrameworks |? { $_ -match 'net(?:coreapp)?(\d+\.\d+)' } |% {
         $v = $Matches[1]
         $runtimeVersions += $v
         if ($v -ge '3.0' -and -not ($IsMacOS -or $IsLinux)) {
