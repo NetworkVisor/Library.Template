@@ -55,7 +55,7 @@ $PDBs |% {
     }
 
     if ($BinaryImagePath) {
-    Write-Output $BinaryImagePath
-    Write-Output $_.FullName
+        Write-Output $BinaryImagePath
+        Write-Output $_.FullName
     }
 }
