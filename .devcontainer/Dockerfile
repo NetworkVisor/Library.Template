@@ -1,3 +1,4 @@
+# Refer to https://hub.docker.com/_/microsoft-dotnet-sdk for available versions
 FROM mcr.microsoft.com/dotnet/sdk:7.0.101-jammy
 
 # Installing mono makes `dotnet test` work without errors even for net472.
