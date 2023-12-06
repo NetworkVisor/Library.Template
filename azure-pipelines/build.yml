@@ -4,19 +4,25 @@ parameters:
   default:
     vmImage: windows-2022
 - name: includeMacOS
+- name: RunTests
+  type: boolean
+  default: true
 
 jobs:
 - job: Windows
   pool: ${{ parameters.windowsPool }}
   steps:
   - checkout: self
+    fetchDepth: 0 # avoid shallow clone so nbgv can do its work.
     clean: true
   - template: install-dependencies.yml
 
-  - powershell: '& (./azure-pipelines/Get-nbgv.ps1) cloud -c'
-    displayName: Set build number
+  - script: dotnet nbgv cloud -c
+    displayName: ⚙ Set build number
 
   - template: dotnet.yml
+    parameters:
+      RunTests: ${{ parameters.RunTests }}
   - template: expand-template.yml
 
 - job: Linux
@@ -24,20 +30,28 @@ jobs:
     vmImage: Ubuntu 20.04
   steps:
   - checkout: self
+    fetchDepth: 0 # avoid shallow clone so nbgv can do its work.
     clean: true
   - template: install-dependencies.yml
   - template: dotnet.yml
+    parameters:
+      RunTests: ${{ parameters.RunTests }}
+  - script: dotnet format --verify-no-changes --no-restore
+    displayName: 💅 Verify formatted code
   - template: expand-template.yml
 
 - job: macOS
   condition: ${{ parameters.includeMacOS }}
   pool:
-    vmImage: macOS-10.15
+    vmImage: macOS-12
   steps:
   - checkout: self
+    fetchDepth: 0 # avoid shallow clone so nbgv can do its work.
     clean: true
   - template: install-dependencies.yml
   - template: dotnet.yml
+    parameters:
+      RunTests: ${{ parameters.RunTests }}
   - template: expand-template.yml
 
 - job: WrapUp
@@ -49,6 +63,7 @@ jobs:
   condition: succeededOrFailed()
   steps:
   - checkout: self
+    fetchDepth: 0 # avoid shallow clone so nbgv can do its work.
     clean: true
   - template: install-dependencies.yml
     parameters:
@@ -56,7 +71,8 @@ jobs:
   - template: publish-symbols.yml
     parameters:
       includeMacOS: ${{ parameters.includeMacOS }}
-  - template: publish-codecoverage.yml
-    parameters:
-      includeMacOS: ${{ parameters.includeMacOS }}
+  - ${{ if parameters.RunTests }}:
+    - template: publish-codecoverage.yml
+      parameters:
+        includeMacOS: ${{ parameters.includeMacOS }}
   - template: publish-deployables.yml
