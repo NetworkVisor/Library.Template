@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <RepoRootPath>$(MSBuildThisFileDirectory)</RepoRootPath>
+    <NoWarn>$(NoWarn);CS8002</NoWarn>
+    <RunningInCI Condition=" '$(CI)' == 'true' or '$(TF_BUILD)' == 'true' ">true</RunningInCI>
+    <Configurations>Debug;Release;Debug-Windows;Release-Windows;Debug-MacOS;Release-MacOS;Debug-IOS;Release-IOS</Configurations>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProductionBuild Condition=" '$(ProductionBuild)' == '' ">Testing</ProductionBuild>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <BaseIntermediateOutputPath>$(RepoRootPath)obj\$([MSBuild]::MakeRelative($(RepoRootPath), $(MSBuildProjectDirectory)))\</BaseIntermediateOutputPath>
     <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
+  </PropertyGroup>
+
+  <!-- Supported OS Platforms for MAUI -->
+  <Import Project="$(RepoRootPath)eng\props\SupportedHosts.props" Label="SupportedHosts" />
+
+  <PropertyGroup>
     <PackageOutputPath>$(RepoRootPath)bin\Packages\$(Configuration)\</PackageOutputPath>
     <LangVersion>12</LangVersion>
     <Nullable>enable</Nullable>
@@ -25,15 +40,15 @@
     <GitVersionBaseDirectory>$(MSBuildThisFileDirectory)</GitVersionBaseDirectory>
 
     <!-- Local builds should embed PDBs so we never lose them when a subsequent build occurs. -->
-    <DebugType Condition=" '$(CI)' != 'true' and '$(TF_BUILD)' != 'true' ">embedded</DebugType>
+    <DebugType Condition=" '$(RunningInCI)' != 'true' ">embedded</DebugType>
 
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)strongname.snk</AssemblyOriginatorKeyFile>
 
-    <!-- <PackageProjectUrl>https://github.com/ORG/REPO</PackageProjectUrl> -->
-    <Company>COMPANY-PLACEHOLDER</Company>
-    <Authors>COMPANY-PLACEHOLDER</Authors>
-    <Copyright>© COMPANY-PLACEHOLDER. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/NetworkVisor/Platform</PackageProjectUrl>
+    <Company>Network Visor</Company>
+    <Authors>Network Visor</Authors>
+    <Copyright>© Network Visor. All rights reserved.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

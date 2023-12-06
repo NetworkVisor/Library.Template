@@ -8,30 +8,65 @@ on:
   pull_request:
 
 env:
+  PRODUCTION_BUILD: Production
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  BUILDCONFIGURATION: Release
-  # codecov_token: 4dc9e7e2-6b01-4932-a180-847b52b43d35 # Get a new one from https://codecov.io/
+  BUILDCONFIGURATION: Release-Windows
+  codecov_token: 5a7f688f-2863-461e-b3aa-8c65c41b4159
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages/
+  NUGET_NAME: 'networkvisor-eng'
+  NUGET_URL: 'https://pkgs.dev.azure.com/NetworkVisor/_packaging/networkvisor-eng/nuget/v3/index.json'
+  RUN_DOTNET_FORMAT: false
 
 jobs:
   build:
 
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
         os:
-        - ubuntu-20.04
-        - macos-latest
+        - macOS-13
         - windows-latest
 
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
-    - name: ⚙ Install prerequisites
+    - uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: '15.0.1'
+      if: runner.os == 'macOS'
+
+    - name: Install OpenJDK v17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'microsoft'
+        java-version: '17'
+    - name: Set build configuration on Mac
+      run: echo "BUILDCONFIGURATION=Release-MacOS" >> $GITHUB_ENV
+      if: runner.os == 'macOS'
+    - name: Set build configuration on Windows
+      run: echo "BUILDCONFIGURATION=Release-Windows" >> $env:GITHUB_ENV
+      if: runner.os == 'Windows'
+    - name: Verify build configuration
+      run: echo ${{ env.BUILDCONFIGURATION }}
+    - name: Verify production build
+      run: echo ${{ env.PRODUCTION_BUILD }}
+    - name: ⚙ Install prerequisites on Windows
       run: |
-        ./init.ps1 -UpgradePrerequisites
+        ./init.ps1 -UpgradePrerequisites -WorkloadRestore -UpdateNugetSourceName: ${{ env.NUGET_NAME }} -UpdateNugetSourcePath: ${{ env.NUGET_URL }} -UpdateNugetUserName: NetworkVisor -UpdateNugetPassword: ${{ secrets.NETWORKVISOR_BUILD_PAT }} 
+        dotnet --info
+        
+        # Print mono version if it is present.
+        if (Get-Command mono -ErrorAction SilentlyContinue) {
+          mono --version
+        }
+      shell: pwsh
+      if: runner.os == 'Windows'
+    - name: ⚙ Install prerequisites on MacOS
+      run: |
+        ./init.ps1 -UpgradePrerequisites -WorkloadRestore -UpdateNugetSourceName: ${{ env.NUGET_NAME }} -UpdateNugetSourcePath: ${{ env.NUGET_URL }} -UpdateNugetUserName: NetworkVisor -UpdateNugetPassword: ${{ secrets.NETWORKVISOR_BUILD_PAT }}
         dotnet --info
 
         # Print mono version if it is present.
@@ -39,13 +74,17 @@ jobs:
           mono --version
         }
       shell: pwsh
+      if: runner.os == 'macOS'
     - name: ⚙️ Set pipeline variables based on source
       run: azure-pipelines/variables/_pipelines.ps1
       shell: pwsh
+    - name: format
+      run: dotnet format --verify-no-changes --verbosity diagnostic --binarylog:"${{ runner.temp }}/_artifacts/build_logs/format.binlog"
+      if: ${{ env.RUN_DOTNET_FORMAT == 'true'}}
     - name: 🛠 build
-      run: dotnet build -t:build,pack --no-restore -c ${{ env.BUILDCONFIGURATION }} -warnaserror /bl:"${{ runner.temp }}/_artifacts/build_logs/build.binlog"
+      run: dotnet build -t:build,pack --no-restore -c ${{ env.BUILDCONFIGURATION }} -warnaserror /bl:"${{ runner.temp }}/_artifacts/build_logs/build.binlog" -property:ProductionBuild=${{ env.PRODUCTION_BUILD}}
     - name: 🧪 test
-      run: azure-pipelines/dotnet-test-cloud.ps1 -Configuration ${{ env.BUILDCONFIGURATION }} -Agent ${{ runner.os }}
+      run: azure-pipelines/dotnet-test-cloud.ps1 -Configuration ${{ env.BUILDCONFIGURATION }} -Agent ${{ runner.os }} -ProductionBuild ${{ env.PRODUCTION_BUILD }}
       shell: pwsh
     - name: ⚙ Update pipeline variables based on build outputs
       run: azure-pipelines/variables/_pipelines.ps1
@@ -108,8 +147,13 @@ jobs:
         path: ${{ runner.temp }}/_artifacts/deployables
       if: always()
     - name: 📢 Publish code coverage results to codecov.io
-      run: ./azure-pipelines/publish-CodeCov.ps1 -CodeCovToken "${{ env.codecov_token }}" -PathToCodeCoverage "${{ runner.temp }}/_artifacts/coverageResults" -Name "${{ runner.os }} Coverage Results" -Flags "${{ runner.os }}Host,${{ env.BUILDCONFIGURATION }}"
+      run: ./azure-pipelines/publish-CodeCov.ps1 -CodeCovToken "${{ env.codecov_token }}" -PathToCodeCoverage "${{ runner.temp }}/_artifacts/coverageResults" -Name "${{ runner.os }} Coverage Results" -Flags "${{ runner.os }}Host,${{ env.BUILDCONFIGURATION }}" -CalcNSFlags
       shell: pwsh
       timeout-minutes: 3
       continue-on-error: true
       if: always()
+    - name: Cleanup Nuget Source
+      if: always()
+      continue-on-error: true
+      run: |
+        dotnet nuget remove source networkvisor-eng

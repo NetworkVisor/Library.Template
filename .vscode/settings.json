@@ -5,6 +5,8 @@
   "omnisharp.enableEditorConfigSupport": true,
   "omnisharp.enableRoslynAnalyzers": true,
   "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
+  "maui.configuration.javaSdkPreferredPath": "C:\\Program Files\\Microsoft\\jdk-21.0.1.12-hotspot",
+  "maui.configuration.androidSdkPreferredPath": "C:\\Program Files (x86)\\Android\\android-sdk",
   "editor.formatOnSave": true,
   "[xml]": {
     "editor.wordWrap": "off"

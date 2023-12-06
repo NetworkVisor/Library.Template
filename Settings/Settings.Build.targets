@@ -1,0 +1,133 @@
+<Project>
+
+  <ItemGroup Condition=" '$(ProductionBuild)' == 'Production' ">
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Production.json" >
+      <LogicalName>Settings.sharedsettings.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Production.json" Condition="Exists('Settings\appsettings.Production.json')" >
+      <LogicalName>Settings.appsettings.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(ProductionBuild)' == 'Staging' ">
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Staging.json" >
+      <LogicalName>Settings.sharedsettings.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Staging.json" Condition="Exists('Settings\appsettings.Staging.json')" >
+      <LogicalName>Settings.appsettings.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(ProductionBuild)' == 'Testing' ">
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Testing.json">
+      <LogicalName>Settings.sharedsettings.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Testing.json" Condition="Exists('Settings\appsettings.Testing.json')" >
+      <LogicalName>Settings.appsettings.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Development.json" >
+      <LogicalName>Settings.sharedsettings.Development.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Development.json" Condition="Exists('Settings\appsettings.Development.json')" >
+      <LogicalName>Settings.appsettings.Development.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <!--<EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Testing.json" >
+      <LogicalName>Settings.sharedsettings.Testing.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Testing.json" Condition="Exists('Settings\appsettings.Testing.json')" >
+      <LogicalName>Settings.appsettings.Testing.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>-->
+
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Staging.json" >
+      <LogicalName>Settings.sharedsettings.Staging.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Staging.json" Condition="Exists('Settings\appsettings.Staging.json')" >
+      <LogicalName>Settings.appsettings.Staging.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Production.json" >
+      <LogicalName>Settings.sharedsettings.Production.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Production.json" Condition="Exists('Settings\appsettings.Production.json')" >
+      <LogicalName>Settings.appsettings.Production.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(ProductionBuild)' == 'Development' ">
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Development.json">
+      <LogicalName>Settings.sharedsettings.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Development.json" Condition="Exists('Settings\appsettings.Development.json')" >
+      <LogicalName>Settings.appsettings.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <!--<EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Development.json" >
+      <LogicalName>Settings.sharedsettings.Development.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Development.json" Condition="Exists('Settings\appsettings.Development.json')" >
+      <LogicalName>Settings.appsettings.Development.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>-->
+
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Testing.json" >
+      <LogicalName>Settings.sharedsettings.Testing.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Testing.json" Condition="Exists('Settings\appsettings.Testing.json')" >
+      <LogicalName>Settings.appsettings.Testing.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Staging.json" >
+      <LogicalName>Settings.sharedsettings.Staging.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Staging.json" Condition="Exists('Settings\appsettings.Staging.json')" >
+      <LogicalName>Settings.appsettings.Staging.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Production.json" >
+      <LogicalName>Settings.sharedsettings.Production.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+    <EmbeddedResource Include="Settings\appsettings.Production.json" Condition="Exists('Settings\appsettings.Production.json')" >
+      <LogicalName>Settings.appsettings.Production.json</LogicalName>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+
+  </ItemGroup>
+
+</Project>
