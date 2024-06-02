@@ -3,12 +3,14 @@
   <PropertyGroup>
     <RepoRootPath>$(MSBuildThisFileDirectory)</RepoRootPath>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
-    <RunningInCI Condition=" '$(CI)' == 'true' or '$(TF_BUILD)' == 'true' ">true</RunningInCI>
+    <BuildingInCI Condition=" '$(CI)' == 'true' or '$(TF_BUILD)' == 'true' ">true</BuildingInCI>
+    <DefineConstants Condition=" '$(BuildingInCI)' == 'true'">$(DefineConstants);NV_BUILD_CI</DefineConstants>
     <Configurations>Debug;Release;Debug-Windows;Release-Windows;Debug-MacOS;Release-MacOS;Debug-IOS;Release-IOS</Configurations>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <ProductionBuild Condition=" '$(ProductionBuild)' == '' ">Testing</ProductionBuild>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
-    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <Optimize Condition="$(Configuration.StartsWith('Release'))">true</Optimize>
+    <MtouchDebug Condition="$(Configuration.StartsWith('Debug'))">true</MtouchDebug>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,16 +18,24 @@
     <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
   </PropertyGroup>
 
-  <!-- Supported OS Platforms for MAUI -->
+  <PropertyGroup>
+    <!-- ENC errors https://github.com/dotnet/sdk/issues/36666#issuecomment-1814835637 -->
+    <EnableSourceControlManagerQueries>true</EnableSourceControlManagerQueries>
+  </PropertyGroup>
+
+  <!-- Supported Hosts and Defines -->
   <Import Project="$(RepoRootPath)eng\props\SupportedHosts.props" Label="SupportedHosts" />
 
   <PropertyGroup>
     <PackageOutputPath>$(RepoRootPath)bin\Packages\$(Configuration)\</PackageOutputPath>
-    <LangVersion>12</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Language level and code analysis -->
+    <LangVersion>latest</LangVersion>
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 
@@ -40,7 +50,7 @@
     <GitVersionBaseDirectory>$(MSBuildThisFileDirectory)</GitVersionBaseDirectory>
 
     <!-- Local builds should embed PDBs so we never lose them when a subsequent build occurs. -->
-    <DebugType Condition=" '$(RunningInCI)' != 'true' ">embedded</DebugType>
+    <DebugType Condition=" '$(BuildingInCI)' != 'true' ">embedded</DebugType>
 
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)strongname.snk</AssemblyOriginatorKeyFile>

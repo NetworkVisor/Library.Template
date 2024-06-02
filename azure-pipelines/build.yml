@@ -15,6 +15,8 @@ parameters:
 - name: MacAgentPool
   type: string
   default: ''
+- name: CertSecurePwd
+  type: string
 - name: RunDotNetFormatWin
   displayName: Run dotnet format on windows
   type: boolean

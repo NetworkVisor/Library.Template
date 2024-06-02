@@ -27,7 +27,7 @@ parameters:
   default: 'Production' 
 - name: XCodePath
   type: string
-  default: '/Applications/Xcode_15.0.1.app' 
+  default: '/Applications/Xcode_15.2.app' 
 - name: WindowsAgentPool
   displayName: Build Pool for Windows host
   type: string
@@ -35,7 +35,11 @@ parameters:
 - name: MacAgentPool
   displayName: Build Pool for macOS host
   type: string
-  default: ''   
+  default: '' 
+- name: CertSecurePwd
+  displayName: Password for Apple certificate
+  type: string
+  default: $(CertSecurePwd)
 - name: RunDotNetFormatWin
   displayName: Run dotnet format on windows
   type: boolean
@@ -61,6 +65,7 @@ jobs:
     XCodePath: ${{ parameters.XCodePath }}
     WindowsAgentPool: ${{ parameters.WindowsAgentPool }}
     MacAgentPool: ${{ parameters.MacAgentPool }}
+    CertSecurePwd: ${{ parameters.CertSecurePwd }}
     RunDotNetFormatWin: ${{ parameters.RunDotNetFormatWin }}
     RunDotNetFormatMac: ${{ parameters.RunDotNetFormatMac }}
     
