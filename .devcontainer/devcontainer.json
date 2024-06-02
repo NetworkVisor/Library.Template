@@ -4,7 +4,7 @@
   "settings": {
     "terminal.integrated.shell.linux": "/usr/bin/pwsh"
   },
-  "postCreateCommand": "./init.ps1 -InstallLocality machine",
+  "postCreateCommand": "./init.ps1 -InstallLocality machine -WorkloadRestore",
   "extensions": [
     "ms-azure-devops.azure-pipelines",
     "ms-dotnettools.csharp",
@@ -15,6 +15,10 @@
     "dotjoshjohnson.xml",
     "ms-vscode-remote.remote-containers",
     "ms-azuretools.vscode-docker",
-    "ms-vscode.powershell"
+    "ms-vscode.powershell",
+    "tintoy.msbuild-project-tools",
+    "ms-dotnettools.csdevkit",
+    "ms-dotnettools.dotnet-maui",
+    "ms-vscode.azurecli"
   ]
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+    <DefineConstants>$(DefineConstants);NV_PLAT_MACCATALYST;NV_PLAT_MOBILE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+    <DefineConstants>$(DefineConstants);NV_PLAT_IOS;NV_PLAT_MOBILE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+    <DefineConstants>$(DefineConstants);NV_PLAT_ANDROID;NV_PLAT_MOBILE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <DefineConstants>$(DefineConstants);NV_PLAT_WINUI;NV_PLAT_MOBILE</DefineConstants>
+  </PropertyGroup>
+
+  
+</Project>

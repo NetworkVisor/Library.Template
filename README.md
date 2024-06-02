@@ -2,11 +2,8 @@
 
 ***An awesome template for your awesome library***
 
-![NuGet package](https://img.shields.io/badge/nuget-your--package--here-yellow.svg)
+[![NuGet package](https://img.shields.io/nuget/v/NetworkVisor.Platform.svg)](https://nuget.org/packages/NetworkVisor.Platform)
 
-[![Azure Pipelines status](https://dev.azure.com/andrewarnott/OSS/_apis/build/status/AArnott.Library.Template?branchName=main)](https://dev.azure.com/andrewarnott/OSS/_build/latest?definitionId=29&branchName=main)
-![GitHub Actions status](https://github.com/aarnott/Library.Template/workflows/CI/badge.svg)
-[![codecov](https://codecov.io/gh/aarnott/library.template/branch/main/graph/badge.svg)](https://codecov.io/gh/aarnott/library.template)
 
 ## Features
 
@@ -19,7 +16,7 @@
 * Automatically pack the library and publish it as an artifact, and even push it to some NuGet feed for consumption.
 * Testing
   * Testing on .NET Framework, multiple .NET Core versions
-  * Testing on Windows, Linux and OSX
+  * Testing on Windows and macOS
   * Tests that crash or hang in Azure Pipelines automatically collect dumps and publish as a pipeline artifact for later investigation.
 * Cloud build support
   * YAML based build for long-term serviceability, and PR review opportunities for any changes.
