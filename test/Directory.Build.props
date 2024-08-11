@@ -7,4 +7,12 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="$(RepoRootPath)\test\xunit.runner.json" CopyToOutputDirectory="PreserveNewest" Pack="false" />
+  </ItemGroup>
+
 </Project>

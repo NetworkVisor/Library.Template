@@ -1,0 +1,47 @@
+﻿{
+  "AllowedHosts": "*",
+
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Debug",
+      "Override": {
+        "Microsoft": "Information",
+        "System": "Information"
+      }
+    }
+  },
+
+  "AppSettings": {
+    "AppEnvironment": "Production"
+  },
+
+  "UserAuthClientAppSettings": {
+    "AuthEnvironment": "Production",
+    "LogLevel": "Verbose",
+    "Tenant": "networkvisor.onmicrosoft.com",
+    "AzureADB2CHostname": "login.networkvisor.com",
+    "B2cExtensionAppClientId": "00db7f61-e487-4d1c-a9f9-70add85080db",
+
+    "PolicySignUpSignIn": "B2C_1A_SIGNUP_SIGNIN",
+    "PolicyProfileEdit": "B2C_1A_PROFILEEDIT",
+    "PolicyPasswordReset": "B2C_1A_PASSWORDRESET",
+
+    "Scopes": [
+      "https://networkvisortest.onmicrosoft.com/api/demo.read"
+    ],
+
+    "IOSKeyChainGroup": "com.microsoft.adalcache",
+
+    "ClientSecret": "",
+    "KeyVaultUri": "https://nv-keyvault-production.vault.azure.net/",
+    "KeyVaultSecretKey": "NetworkVisor-Cloud-Identity-Admin-Secret"
+  },
+
+  "HostSettings": {
+    "HostEnvironment": "Production"
+  },
+
+  "BuildSettings": {
+    "BuildEnvironment": "Production"
+  }
+}
