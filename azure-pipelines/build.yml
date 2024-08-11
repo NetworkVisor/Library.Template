@@ -62,7 +62,7 @@ jobs:
   
   pool:
     ${{ if eq(parameters.MacAgentPool, '') }}:
-        vmImage: macOS-13
+        vmImage: macOS-14
     ${{ if ne(parameters.MacAgentPool, '') }}:
         name: ${{ parameters.MacAgentPool }}
   variables:

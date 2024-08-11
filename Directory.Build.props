@@ -5,7 +5,7 @@
     <NoWarn>$(NoWarn);CS8002</NoWarn>
     <BuildingInCI Condition=" '$(CI)' == 'true' or '$(TF_BUILD)' == 'true' ">true</BuildingInCI>
     <DefineConstants Condition=" '$(BuildingInCI)' == 'true'">$(DefineConstants);NV_BUILD_CI</DefineConstants>
-    <Configurations>Debug;Release;Debug-Windows;Release-Windows;Debug-MacOS;Release-MacOS;Debug-IOS;Release-IOS</Configurations>
+    <Configurations>Debug;Release;Debug-Windows;Release-Windows;Debug-MacOS;Release-MacOS</Configurations>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <ProductionBuild Condition=" '$(ProductionBuild)' == '' ">Testing</ProductionBuild>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>

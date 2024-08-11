@@ -131,4 +131,13 @@
 
   </ItemGroup>
 
+  <Target Name="_SetPublishFolderTypeNoneOnJsonFileItems" BeforeTargets="_ComputePublishLocation">
+    <ItemGroup>
+      <ResolvedFileToPublish
+        Update="@(ResolvedFileToPublish)"
+        Condition="'%(ResolvedFileToPublish.Extension)' == '.json' And '%(ResolvedFileToPublish.PublishFolderType)' == '' And ($([System.String]::Copy('%(ResolvedFileToPublish.FileName)').StartsWith('sharedsettings')) Or $([System.String]::Copy('%(ResolvedFileToPublish.FileName)').StartsWith('appsettings')))"
+        PublishFolderType="None" />
+    </ItemGroup>
+  </Target>
+
 </Project>
