@@ -356,3 +356,5 @@ MigrationBackup/
 # dev directory
 .dev/
 
+# Analysis results
+*.sarif
