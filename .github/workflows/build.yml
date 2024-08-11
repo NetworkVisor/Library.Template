@@ -27,7 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-        - macOS-13
+        - macOS-latest
         - windows-latest
 
     steps:
@@ -36,7 +36,7 @@ jobs:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '15.2'
+        xcode-version: '15.4'
       if: runner.os == 'macOS'
 
     - name: Install OpenJDK v11
@@ -160,10 +160,9 @@ jobs:
       shell: pwsh
       timeout-minutes: 3
       continue-on-error: true
-      if: always()
+      if: env.codecov_token != ''
     - name: Cleanup Nuget Source
       if: always()
       continue-on-error: true
       run: |
         dotnet nuget remove source networkvisor-eng
-      if: env.codecov_token != ''

@@ -190,11 +190,12 @@ dotnet_diagnostic.SA1309.severity = suggestion
 dotnet_diagnostic.SA1614.severity = suggestion
 dotnet_diagnostic.SA1649.severity = suggestion
 
-# NetworkVisor overrides
-# IDE0057: Use range operator
-csharp_style_prefer_range_operator = false
 # CA2016: Forward the CancellationToken parameter
 dotnet_diagnostic.CA2016.severity = warning
 
 [*.sln]
 indent_style = tab
+
+# NetworkVisor overrides
+# IDE0057: Use range operator
+csharp_style_prefer_range_operator = false
