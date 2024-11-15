@@ -16,6 +16,5 @@ steps:
 - task: PublishCodeCoverageResults@2
   displayName: 📢 Publish code coverage results to Azure DevOps
   inputs:
-    codeCoverageTool: cobertura
     summaryFileLocation: coveragereport/merged.cobertura.xml
     failIfCoverageEmpty: true

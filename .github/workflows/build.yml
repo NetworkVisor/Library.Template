@@ -83,10 +83,14 @@ jobs:
       run: dotnet format --verify-no-changes --verbosity diagnostic --binarylog:"${{ runner.temp }}/_artifacts/build_logs/format.binlog"
       if: ${{ env.RUN_DOTNET_FORMAT == 'true'}}
     - name: 🛠 build
-      run: dotnet build -t:build,pack --no-restore -c ${{ env.BUILDCONFIGURATION }} -warnaserror /bl:"${{ runner.temp }}/_artifacts/build_logs/build.binlog" -property:ProductionBuild=${{ env.PRODUCTION_BUILD}}
+      run: dotnet build -t:build,pack --no-restore -c ${{ env.BUILDCONFIGURATION }} -warnAsError -warnNotAsError:NU1901,NU1902,NU1903,NU1904 /bl:"${{ runner.temp }}/_artifacts/build_logs/build.binlog" -property:ProductionBuild=${{ env.PRODUCTION_BUILD}}
     - name: 🧪 test
       run: azure-pipelines/dotnet-test-cloud.ps1 -Configuration ${{ env.BUILDCONFIGURATION }} -Agent ${{ runner.os }} -ProductionBuild ${{ env.PRODUCTION_BUILD }}
       shell: pwsh
+    - name: 💅🏻 Verify formatted code
+      run: dotnet format --verify-no-changes --no-restore
+      shell: pwsh
+      if: runner.os == 'Linux'
     - name: ⚙ Update pipeline variables based on build outputs
       run: azure-pipelines/variables/_pipelines.ps1
       shell: pwsh
@@ -156,7 +160,7 @@ jobs:
         retention-days: ${{ env. ARTIFACT_RETENTION_DAYS }}
       if: always()
     - name: 📢 Publish code coverage results to codecov.io
-      run: ./azure-pipelines/publish-CodeCov.ps1 -CodeCovToken "${{ env.codecov_token }}" -PathToCodeCoverage "${{ runner.temp }}/_artifacts/coverageResults" -Name "${{ runner.os }} Coverage Results" -Flags "${{ runner.os }}Host,${{ env.BUILDCONFIGURATION }}" -CalcNSFlags
+      run: ./azure-pipelines/publish-CodeCov.ps1 -CodeCovToken "${{ env.codecov_token }}" -PathToCodeCoverage "${{ runner.temp }}/_artifacts/coverageResults" -Name "${{ runner.os }} Coverage Results" -Flags "${{ runner.os }}" -CalcNSFlags
       shell: pwsh
       timeout-minutes: 3
       continue-on-error: true
