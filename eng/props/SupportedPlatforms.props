@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
 
-  <!-- IOS -->
+  <!-- IOS 
+    Current:  IOS 12.2,   Released: 9/17/2018
+    Previous: IOS 11.0,   Released: 9/29/2017 (Changed to 12.2 on 11/13/2024)
+    -->
   <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
-    <SupportedOSPlatformVersion>11.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>12.2</SupportedOSPlatformVersion>
   </PropertyGroup>
 
-  <!-- MacCatalyst -->
+  <!-- MacCatalyst 
+    Current:  Sequoia 15.0,   Released: 6/10/2024
+    Previous: Ventura 13.1,   Released: 6/2/2020 (Changed to 15.0 on 11/13/2024)
+    -->
   <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
-    <SupportedOSPlatformVersion>13.1</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>15.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
-  <!-- MacOS -->
+  <!-- MacOS 
+    Current:  Monterey 12.0,    Released: 6/7/2021
+    Previous: Catalina 10.15,   Released: 6/3/2019 (Changed to 12.0 on 11/13/2024)
+    -->
   <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'macos'">
-    <SupportedOSPlatformVersion>10.15</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>12.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
   <!-- Android -->
@@ -24,16 +33,16 @@
   <!-- Windows -->
   <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
 
-    <!-- Windows -->
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <TargetPlatformMinVersion>7.0</TargetPlatformMinVersion>
+    <!-- WPF supports Windows 7 SP1:   Microsoft Windows NT 6.1.7601 Service Pack 1-->
+    <SupportedOSPlatformVersion>6.1</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion>6.1</TargetPlatformMinVersion>
 
-    <!-- Windows net8.0-windows10.0 -->
-    <SupportedOSPlatformVersion Condition="$(TargetFramework.StartsWith('net8.0-windows10.0'))">10.0.17763.0</SupportedOSPlatformVersion>
-    <TargetPlatformMinVersion Condition="$(TargetFramework.StartsWith('net8.0-windows10.0'))">10.0.17763.0</TargetPlatformMinVersion>
+    <!-- Windows net9.0-windows10.0 -->
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.StartsWith('net9.0-windows10.0'))">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$(TargetFramework.StartsWith('net9.0-windows10.0'))">10.0.17763.0</TargetPlatformMinVersion>
 
     <PublishReadyToRun>false</PublishReadyToRun>
-   
+
   </PropertyGroup>
 
   <!-- Tizen -->
@@ -42,7 +51,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <!-- Runtime Identifier no longer produces a self contained app by default on net8 -->
+    <!-- Runtime Identifier no longer produces a self contained app by default on net8 and net9 -->
     <NoWarn>$(NoWarn);NETSDK1201</NoWarn>
   </PropertyGroup>
 

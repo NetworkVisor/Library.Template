@@ -1,18 +1,16 @@
 ﻿{
-  "AllowedHosts": "*",
-
-  "Serilog": {
-    "MinimumLevel": {
-      "Default": "Debug",
-      "Override": {
-        "Microsoft": "Information",
-        "System": "Information"
-      }
-    }
+  "AppSettings": {
+    "SchemaVersion": "1.0",
+    "AppName": "NetworkVisor.Platform.Test.Testing",
+    "AppID": "8E53C6C2-3996-4C3E-B29C-A20C5F4601DD",
+    "AppHostEnvironment": "Testing",
+    "CloudHostEnvironment": "Testing",
+    "AppFolderName": "NetworkVisor.Platform.Test.Testing",
+    "OpenTelemetryConnectionString": "InstrumentationKey=d698c2bc-f66b-481f-b62e-a9199f3fa1ea;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/;ApplicationId=f21e0143-ffc4-47f8-9e9b-5fd713878227"
   },
 
-  "AppSettings": {
-    "AppEnvironment": "Testing"
+  "ApplicationInsights": {
+    "ConnectionString": "InstrumentationKey=d698c2bc-f66b-481f-b62e-a9199f3fa1ea;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/;ApplicationId=f21e0143-ffc4-47f8-9e9b-5fd713878227"
   },
 
   "UserAuthClientAppSettings": {
@@ -35,13 +33,5 @@
     "ClientSecret": "",
     "KeyVaultUri": "https://nv-keyvault-testing.vault.azure.net/",
     "KeyVaultSecretKey": "NetworkVisor-Cloud-Identity-Admin-Secret"
-  },
-
-  "HostSettings": {
-    "HostEnvironment": "Testing"
-  },
-
-  "BuildSettings": {
-    "BuildEnvironment": "Testing"
   }
 }

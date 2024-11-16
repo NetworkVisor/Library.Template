@@ -7,6 +7,10 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
+    <CreatePackage>false</CreatePackage>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentAssertions" />
   </ItemGroup>

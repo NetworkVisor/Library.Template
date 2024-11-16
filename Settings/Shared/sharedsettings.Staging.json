@@ -1,18 +1,16 @@
 ﻿{
-  "AllowedHosts": "*",
-
-  "Serilog": {
-    "MinimumLevel": {
-      "Default": "Debug",
-      "Override": {
-        "Microsoft": "Information",
-        "System": "Information"
-      }
-    }
+  "AppSettings": {
+    "SchemaVersion": "1.0",
+    "AppName": "NetworkVisor.Platform.Test.Staging",
+    "AppID": "AC9FCE80-903C-49B2-BEB9-B30B6AF45D38",
+    "AppHostEnvironment": "Staging",
+    "CloudHostEnvironment": "Staging",
+    "AppFolderName": "NetworkVisor.Platform.Test.Staging",
+    "OpenTelemetryConnectionString": "InstrumentationKey=3a61ff04-0477-460b-8a0d-2600ece796b3;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/;ApplicationId=b77f3264-b5cb-4459-bf9c-31f47480b010"
   },
 
-  "AppSettings": {
-    "AppEnvironment": "Staging"
+  "ApplicationInsights": {
+    "ConnectionString": "InstrumentationKey=3a61ff04-0477-460b-8a0d-2600ece796b3;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/;ApplicationId=b77f3264-b5cb-4459-bf9c-31f47480b010"
   },
 
   "UserAuthClientAppSettings": {
@@ -35,13 +33,5 @@
     "ClientSecret": "",
     "KeyVaultUri": "https://nv-keyvault-staging.vault.azure.net/",
     "KeyVaultSecretKey": "NetworkVisor-Cloud-Identity-Admin-Secret"
-  },
-
-  "HostSettings": {
-    "HostEnvironment": "Staging"
-  },
-
-  "BuildSettings": {
-    "BuildEnvironment": "Staging"
   }
 }

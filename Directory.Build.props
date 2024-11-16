@@ -3,19 +3,26 @@
   <PropertyGroup>
     <RepoRootPath>$(MSBuildThisFileDirectory)</RepoRootPath>
     <NoWarn>$(NoWarn);CS8002</NoWarn>
+
+    <!-- Added for .net9.0 support. XAML bindings and Nuget vulnerability data not found -->
+    <NoWarn>$(NoWarn);XC0025;NU1900</NoWarn>
     <BuildingInCI Condition=" '$(CI)' == 'true' or '$(TF_BUILD)' == 'true' ">true</BuildingInCI>
     <DefineConstants Condition=" '$(BuildingInCI)' == 'true'">$(DefineConstants);NV_BUILD_CI</DefineConstants>
     <Configurations>Debug;Release;Debug-Windows;Release-Windows;Debug-MacOS;Release-MacOS</Configurations>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <ProductionBuild Condition=" '$(ProductionBuild)' == '' ">Testing</ProductionBuild>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
-    <Optimize Condition="$(Configuration.StartsWith('Release'))">true</Optimize>
-    <MtouchDebug Condition="$(Configuration.StartsWith('Debug'))">true</MtouchDebug>
+    <AcceptAndroidSDKLicenses>true</AcceptAndroidSDKLicenses>
   </PropertyGroup>
 
   <PropertyGroup>
     <BaseIntermediateOutputPath>$(RepoRootPath)obj\$([MSBuild]::MakeRelative($(RepoRootPath), $(MSBuildProjectDirectory)))\</BaseIntermediateOutputPath>
     <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net6')) Or $(TargetFramework.StartsWith('net4')) Or $(TargetFramework.StartsWith('netcoreapp'))">
+    <!-- Suppress target framework support warnings on net462, and net6.0 netcoreapp3.1 -->
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -35,7 +42,7 @@
     <LangVersion>latest</LangVersion>
     <AnalysisLevel>latest</AnalysisLevel>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-    
+
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
 
@@ -77,7 +84,7 @@
 
   <Target Name="PrepareReleaseNotes" BeforeTargets="GenerateNuspec" DependsOnTargets="GetBuildVersion">
     <PropertyGroup>
-      <PackageReleaseNotes Condition="'$(PackageProjectUrl)'!=''">$(PackageProjectUrl)/releases/tag/v$(Version)</PackageReleaseNotes>
+      <PackageReleaseNotes Condition="'$(RepositoryUrl)'!=''">$(RepositoryUrl)/releases/tag/v$(Version)</PackageReleaseNotes>
     </PropertyGroup>
   </Target>
 </Project>

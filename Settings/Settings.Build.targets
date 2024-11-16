@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
 
+  <PropertyGroup Condition=" '$(ProductionBuild)' == 'Development' ">
+    <!-- Needed for Visual Studio to "see" local App Insights data in debug output. -->
+    <ApplicationInsightsResourceId>/subscriptions/482cdb8d-eb31-48fd-a57f-dae63ccc8308/resourceGroups/nv-monitor-development-rg/providers/microsoft.insights/components/nv-appinsights-development</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ProductionBuild)' == 'Testing' ">
+    <!-- Needed for Visual Studio to "see" local App Insights data in debug output. -->
+    <ApplicationInsightsResourceId>/subscriptions/482cdb8d-eb31-48fd-a57f-dae63ccc8308/resourceGroups/nv-monitor-testing-rg/providers/microsoft.insights/components/nv-appinsights-testing</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ProductionBuild)' == 'Staging' ">
+    <!-- Needed for Visual Studio to "see" local App Insights data in debug output. -->
+    <ApplicationInsightsResourceId>/subscriptions/482cdb8d-eb31-48fd-a57f-dae63ccc8308/resourceGroups/nv-monitor-staging-rg/providers/microsoft.insights/components/nv-appinsights-staging</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(ProductionBuild)' == 'Production' ">
+    <!-- Needed for Visual Studio to "see" local App Insights data in debug output. -->
+    <ApplicationInsightsResourceId>/subscriptions/482cdb8d-eb31-48fd-a57f-dae63ccc8308/resourceGroups/nv-monitor-production-rg/providers/microsoft.insights/components/nv-appinsights-production</ApplicationInsightsResourceId>
+  </PropertyGroup>
+
   <ItemGroup Condition=" '$(ProductionBuild)' == 'Production' ">
     <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Production.json" >
       <LogicalName>Settings.sharedsettings.json</LogicalName>
