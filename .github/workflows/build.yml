@@ -39,12 +39,23 @@ jobs:
         xcode-version: '16.1'
       if: runner.os == 'macOS'
 
-    - name: Install OpenJDK v21
+    - name: Install OpenJDK v21 on Windows
       uses: actions/setup-java@v4
       with:
         distribution: 'microsoft'
         java-version: '21'
       if: runner.os == 'Windows'
+    - name: Install OpenJDK v21 on Mac
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'microsoft'
+        java-version: '21'
+      if: runner.os == 'macOS'
+    - name: Setup Android SDK
+      uses: amyu/setup-android@v4
+      with:
+        sdk-version: 35
+      if: runner.os == 'macOS'
     - name: Set build configuration on Mac
       run: echo "BUILDCONFIGURATION=Release-MacOS" >> $GITHUB_ENV
       if: runner.os == 'macOS'
