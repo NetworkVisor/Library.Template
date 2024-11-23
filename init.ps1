@@ -115,7 +115,7 @@ try {
 
     if ($WorkloadRestore -and $PSCmdlet.ShouldProcess("dotnet workload", "restore")) {
         Write-Host "Restoring dotnet workloads" -ForegroundColor $HeaderColor
-        dotnet workload install maui android macos maccatalyst ios tvos wasm-tools wasm-tools-net6 wasm-tools-net7 @RestoreArguments
+        dotnet workload install maui android macos maccatalyst ios tvos wasm-tools wasm-tools-net6 wasm-tools-net7 wasm-tools-net8 @RestoreArguments
         if ($lastexitcode -ne 0) {
             throw "Failure while restoring dotnet workloads."
         }

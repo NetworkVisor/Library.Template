@@ -13,7 +13,6 @@
                 <ModulePath>xunit\..*</ModulePath>
                 <ModulePath>System\..*</ModulePath>
                 <ModulePath>Moq\..*</ModulePath>
-                <ModulePath>Zeroconf\..*</ModulePath>
               </Exclude>
             </ModulePaths>
             <Attributes>
