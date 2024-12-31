@@ -1,11 +1,13 @@
-name: CI
+name: 🏭 Build
 
 on:
   push:
     branches:
-      - main
-      - validate/*
+    - main
+    - 'v*.*'
+    - validate/*
   pull_request:
+  workflow_dispatch:
 
 env:
   PRODUCTION_BUILD: Production
@@ -20,6 +22,7 @@ env:
 
 jobs:
   build:
+    name: 🏭 Build
 
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
@@ -89,7 +92,7 @@ jobs:
       shell: pwsh
       if: runner.os == 'macOS'
     - name: ⚙️ Set pipeline variables based on source
-      run: azure-pipelines/variables/_pipelines.ps1
+      run: tools/variables/_define.ps1
       shell: pwsh
     - name: 💅🏻 Verify formatted code
       run: dotnet format --verify-no-changes --verbosity diagnostic --binarylog:"${{ runner.temp }}/_artifacts/build_logs/format.binlog"
@@ -97,82 +100,23 @@ jobs:
     - name: 🛠 build
       run: dotnet build -t:build,pack --no-restore -c ${{ env.BUILDCONFIGURATION }} -warnAsError -warnNotAsError:NU1901,NU1902,NU1903,NU1904 /bl:"${{ runner.temp }}/_artifacts/build_logs/build.binlog" -property:ProductionBuild=${{ env.PRODUCTION_BUILD}}
     - name: 🧪 test
-      run: azure-pipelines/dotnet-test-cloud.ps1 -Configuration ${{ env.BUILDCONFIGURATION }} -Agent ${{ runner.os }} -ProductionBuild ${{ env.PRODUCTION_BUILD }}
+      run: tools/dotnet-test-cloud.ps1 -Configuration ${{ env.BUILDCONFIGURATION }} -Agent ${{ runner.os }} -ProductionBuild ${{ env.PRODUCTION_BUILD }}
       shell: pwsh
     - name: 💅🏻 Verify formatted code
       run: dotnet format --verify-no-changes --no-restore
       shell: pwsh
       if: runner.os == 'Linux'
+    - name: 📚 Verify docfx build
+      run: dotnet docfx docfx/docfx.json --warningsAsErrors --disableGitFeatures
+      if: runner.os == 'Linux'
     - name: ⚙ Update pipeline variables based on build outputs
-      run: azure-pipelines/variables/_pipelines.ps1
+      run: tools/variables/_define.ps1
       shell: pwsh
-    - name: 📥 Collect artifacts
-      run: azure-pipelines/artifacts/_stage_all.ps1
-      shell: pwsh
-      if: always()
-    - name: 📢 Upload project.assets.json files
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: projectAssetsJson-${{ runner.os }}
-        path: ${{ runner.temp }}/_artifacts/projectAssetsJson
-        retention-days: ${{ env. ARTIFACT_RETENTION_DAYS }}
-      continue-on-error: true
-    - name: 📢 Upload variables
-      uses: actions/upload-artifact@v4
-      with:
-        name: variables-${{ runner.os }}
-        path: ${{ runner.temp }}/_artifacts/Variables
-        retention-days: ${{ env. ARTIFACT_RETENTION_DAYS }}
-      continue-on-error: true
-    - name: 📢 Upload build_logs
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: build_logs-${{ runner.os }}
-        path: ${{ runner.temp }}/_artifacts/build_logs
-        retention-days: ${{ env. ARTIFACT_RETENTION_DAYS }}
-      continue-on-error: true
-    - name: 📢 Upload test_logs
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test_logs-${{ runner.os }}
-        path: ${{ runner.temp }}/_artifacts/test_logs
-        retention-days: ${{ env. ARTIFACT_RETENTION_DAYS }}
-      continue-on-error: true
-    - name: 📢 Upload testResults
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: testResults-${{ runner.os }}
-        path: ${{ runner.temp }}/_artifacts/testResults
-        retention-days: ${{ env. ARTIFACT_RETENTION_DAYS }}
-      continue-on-error: true
-    - name: 📢 Upload coverageResults
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: coverageResults-${{ runner.os }}
-        path: ${{ runner.temp }}/_artifacts/coverageResults
-        retention-days: ${{ env. ARTIFACT_RETENTION_DAYS }}
-      continue-on-error: true
-    - name: 📢 Upload symbols
-      uses: actions/upload-artifact@v4
-      with:
-        name: symbols-${{ runner.os }}
-        path: ${{ runner.temp }}/_artifacts/symbols
-        retention-days: ${{ env. ARTIFACT_RETENTION_DAYS }}
-      continue-on-error: true
-    - name: 📢 Upload deployables
-      uses: actions/upload-artifact@v4
-      with:
-        name: deployables-${{ runner.os }}
-        path: ${{ runner.temp }}/_artifacts/deployables
-        retention-days: ${{ env. ARTIFACT_RETENTION_DAYS }}
-      if: always()
+    - name: 📢 Publish artifacts
+      uses: ./.github/actions/publish-artifacts
+      if: cancelled() == false
     - name: 📢 Publish code coverage results to codecov.io
-      run: ./azure-pipelines/publish-CodeCov.ps1 -CodeCovToken "${{ env.codecov_token }}" -PathToCodeCoverage "${{ runner.temp }}/_artifacts/coverageResults" -Name "${{ runner.os }} Coverage Results" -Flags "${{ runner.os }}" -CalcNSFlags
+      run: ./tools/publish-CodeCov.ps1 -CodeCovToken "${{ env.codecov_token }}" -PathToCodeCoverage "${{ runner.temp }}/_artifacts/coverageResults" -Name "${{ runner.os }} Coverage Results" -Flags "${{ runner.os }}"
       shell: pwsh
       timeout-minutes: 3
       continue-on-error: true
