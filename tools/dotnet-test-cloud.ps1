@@ -47,6 +47,9 @@ if ($x86) {
   }
 }
 
+$testBinLog = Join-Path $ArtifactStagingFolder (Join-Path build_logs test.binlog)
+$testDiagLog = Join-Path $ArtifactStagingFolder (Join-Path test_logs diag.log)
+
 & $dotnet test $RepoRoot `
     --no-build `
     -c $Configuration `
@@ -55,8 +58,8 @@ if ($x86) {
     --settings "$PSScriptRoot/test.runsettings" `
     --blame-hang-timeout 300s `
     --blame-crash `
-    -bl:"$ArtifactStagingFolder/build_logs/test.binlog" `
-    --diag "$ArtifactStagingFolder/test_logs/diag.log;TraceLevel=info" `
+    -bl:"$testBinLog" `
+    --diag "$testDiagLog;TraceLevel=info" `
     --logger trx `
     -property:ProductionBuild=$ProductionBuild `
 
