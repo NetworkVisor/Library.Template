@@ -16,12 +16,17 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <!-- Warnings started in net9.0-->
+    <NoWarn>$(NoWarn);XUA1001;AD0001</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <BaseIntermediateOutputPath>$(RepoRootPath)obj\$([MSBuild]::MakeRelative($(RepoRootPath), $(MSBuildProjectDirectory)))\</BaseIntermediateOutputPath>
     <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('net6')) Or $(TargetFramework.StartsWith('net4')) Or $(TargetFramework.StartsWith('netcoreapp'))">
-    <!-- Suppress target framework support warnings on net462, and net6.0 netcoreapp3.1 -->
+    <!-- Suppress target framework support warnings on net472, and net6.0 netcoreapp3.1 -->
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 

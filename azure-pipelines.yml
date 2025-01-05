@@ -25,10 +25,10 @@ parameters:
   default: true
 - name: ProductionBuild
   type: string
-  default: 'Production' 
+  default: 'Testing' 
 - name: XCodePath
   type: string
-  default: '/Applications/Xcode_16.1.app' 
+  default: '/Applications/Xcode_16.2.app' 
 - name: WindowsAgentPool
   displayName: Build Pool for Windows host
   type: string

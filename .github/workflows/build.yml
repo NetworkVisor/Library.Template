@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  PRODUCTION_BUILD: Production
+  PRODUCTION_BUILD: Testing
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   BUILDCONFIGURATION: Release-Windows
   codecov_token: 5a7f688f-2863-461e-b3aa-8c65c41b4159
@@ -25,7 +25,7 @@ jobs:
     name: 🏭 Build
 
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 45
+    timeout-minutes: 60
     strategy:
       fail-fast: false
       matrix:
@@ -39,7 +39,7 @@ jobs:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '16.1'
+        xcode-version: '16.2'
       if: runner.os == 'macOS'
 
     - name: Install OpenJDK v21 on Windows
@@ -116,7 +116,7 @@ jobs:
       uses: ./.github/actions/publish-artifacts
       if: cancelled() == false
     - name: 📢 Publish code coverage results to codecov.io
-      run: ./tools/publish-CodeCov.ps1 -CodeCovToken "${{ env.codecov_token }}" -PathToCodeCoverage "${{ runner.temp }}/_artifacts/coverageResults" -Name "${{ runner.os }} Coverage Results" -Flags "${{ runner.os }}"
+      run: ./tools/publish-CodeCov.ps1 -CodeCovToken "${{ env.codecov_token }}" -PathToCodeCoverage "${{ runner.temp }}/_artifacts/coverageResults" -Name "${{ runner.os }} Coverage Results" -Flags "${{ runner.os }}" -CalcNSFlags
       shell: pwsh
       timeout-minutes: 3
       continue-on-error: true

@@ -3,12 +3,21 @@
 
   "AppSettings": {
     "SchemaVersion": "1.0",
+    "AppHostSettings": {
+      "AppHostEnvironment": "Development",
+      "CloudHostEnvironment": "Development"
+    },
+
+    "AppLoggingSettings": {
+      "MinimumLogLevel": "Debug",
+      "LoggerProviders": "Testing",
+      "OpenTelemetryConnectionString": "InstrumentationKey=d9964443-5997-4e26-90e9-18dc2f72e007;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/;ApplicationId=843016e8-1f0e-4a49-b298-ffe9b2fab0de"
+    },
+
     "AppName": "NetworkVisor.Platform.Test.Development",
-    "AppID": "0BDCF3E1-262D-4AB0-8FEC-113414D892DD",
-    "AppHostEnvironment": "Development",
-    "CloudHostEnvironment": "Development",
-    "AppFolderName": "NetworkVisor.Platform.Test.Development",
-    "OpenTelemetryConnectionString": "InstrumentationKey=d9964443-5997-4e26-90e9-18dc2f72e007;IngestionEndpoint=https://centralus-2.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/;ApplicationId=843016e8-1f0e-4a49-b298-ffe9b2fab0de"
+    "AppGuid": "0bdcf3e1-262d-4ab0-8fec-113414d892dd",
+    "AppPackageName": "com.NetworkVisor.Platform.Test.Development",
+    "AppFolderName": "NetworkVisor.Platform.Test.Development"
   },
 
   "ApplicationInsights": {

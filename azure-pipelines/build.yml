@@ -6,7 +6,7 @@ parameters:
   default: true
 - name: jobTimeout
   type: number
-  default: 45
+  default: 60
 - name: ProductionBuild
 - name: XCodePath
 - name: WindowsAgentPool
@@ -47,6 +47,12 @@ jobs:
   - script: java --version
     displayName: ⚙ Java version
 
+  - script: echo $(BuildConfiguration)
+    displayName: Verify build configuration
+
+  - script: echo ${{ parameters.ProductionBuild }}
+    displayName: Verify production build
+
   - script: dotnet nbgv cloud -c
     displayName: ⚙ Set build number
 
@@ -71,6 +77,14 @@ jobs:
   - checkout: self
     fetchDepth: 0 # avoid shallow clone so nbgv can do its work.
     clean: true
+  - script: |
+      export ANDROID_HOME=$HOME/Library/Android/sdk
+      export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/build-tools/35.0.0:$ANDROID_HOME/platform-tools:$PATH
+      mkdir -p $ANDROID_HOME/cmdline-tools/latest
+      mkdir -p $ANDROID_HOME/build-tools
+      sdkmanager --install "cmdline-tools;latest" "platform-tools" "build-tools;35.0.0" "platforms;android-35"
+      yes | sdkmanager --licenses
+    displayName: "Install Android SDK and Build Tools"
   - template: install-dependencies.yml
     parameters:
       initArgs: -WorkloadRestore
@@ -81,9 +95,53 @@ jobs:
       sudo xcode-select -p
     displayName: Sets xcode path
     condition: ${{ eq(parameters.MacAgentPool, '') }}
-    
+
   - script: java --version
     displayName: ⚙ Java version
+
+  - script: echo $(BuildConfiguration)
+    displayName: Verify build configuration
+
+  - script: echo ${{ parameters.ProductionBuild }}
+    displayName: Verify production build
+
+  - task: InstallAppleCertificate@2
+    displayName: ⚙ Install IOS Apple Certificate
+    inputs:
+      certSecureFile: 'SteveBushIOSDeviceTestSigningID.p12'
+      certPwd: ${{ parameters.CertSecurePwd }}
+    continueOnError: true
+
+  - task: InstallAppleCertificate@2
+    displayName: ⚙ Install MacCatalyst Apple Certificate
+    inputs:
+      certSecureFile: 'SteveBushMacCatalystDeviceTestSigningID.p12'
+      certPwd: ${{ parameters.CertSecurePwd }}
+    continueOnError: true
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: ⚙ IOS Device Provisioning Profile
+    inputs:
+      provisioningProfileLocation: 'secureFiles'
+      provProfileSecureFile: 'NetworkVisorPlatformTestDevicesIOS_Development.mobileprovision'
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: ⚙ MacCatalyst Device Provisioning Profile
+    inputs:
+      provisioningProfileLocation: 'secureFiles'
+      provProfileSecureFile: 'NetworkVisorPlatformTestDevicesMacCatalyst_Development.provisionprofile'
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: ⚙ MacOS Unit Tests Provisioning Profile
+    inputs:
+      provisioningProfileLocation: 'secureFiles'
+      provProfileSecureFile: 'Network_Visor_MacOS_Unit_Tests_Profile.provisionprofile'
+
+  - task: InstallAppleProvisioningProfile@1
+    displayName: ⚙ MacOS Integration Tests Provisioning Profile
+    inputs:
+      provisioningProfileLocation: 'secureFiles'
+      provProfileSecureFile: 'Network_Visor_MacOS_Integration_Tests_Profile.provisionprofile'
 
   - template: dotnet.yml
     parameters:

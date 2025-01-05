@@ -3,5 +3,6 @@
   "methodDisplay": "method",
   "shadowCopy": false,
   "longRunningTestSeconds": 0,
-  "diagnosticMessages": true 
+  "diagnosticMessages": true,
+  "parallelizeAssembly": true
 }

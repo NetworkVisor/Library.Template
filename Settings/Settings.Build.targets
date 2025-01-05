@@ -21,6 +21,13 @@
     <ApplicationInsightsResourceId>/subscriptions/482cdb8d-eb31-48fd-a57f-dae63ccc8308/resourceGroups/nv-monitor-production-rg/providers/microsoft.insights/components/nv-appinsights-production</ApplicationInsightsResourceId>
   </PropertyGroup>
 
+  <Target Name="CreateSettingsOutputFolder" AfterTargets="Build">
+    <Copy Condition=" '$(ProductionBuild)' == 'Production' " SourceFiles ="$(RepoRootPath)\Settings\Shared\sharedsettings.Production.json" DestinationFolder="$(OutputPath)Settings"/>
+    <Copy Condition=" '$(ProductionBuild)' == 'Staging' " SourceFiles ="$(RepoRootPath)\Settings\Shared\sharedsettings.Staging.json" DestinationFolder="$(OutputPath)Settings"/>
+    <Copy Condition=" '$(ProductionBuild)' == 'Testing' " SourceFiles ="$(RepoRootPath)\Settings\Shared\sharedsettings.Testing.json" DestinationFolder="$(OutputPath)Settings"/>
+    <Copy Condition=" '$(ProductionBuild)' == 'Development' " SourceFiles ="$(RepoRootPath)\Settings\Shared\sharedsettings.Development.json" DestinationFolder="$(OutputPath)Settings"/>
+  </Target>
+
   <ItemGroup Condition=" '$(ProductionBuild)' == 'Production' ">
     <EmbeddedResource Include="$(RepoRootPath)\Settings\Shared\sharedsettings.Production.json" >
       <LogicalName>Settings.sharedsettings.json</LogicalName>
