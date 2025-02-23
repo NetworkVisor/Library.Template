@@ -2,10 +2,13 @@
 <Project>
   <PropertyGroup>
     <RepoRootPath>$(MSBuildThisFileDirectory)</RepoRootPath>
+
+    <!-- Disable warning for referenced assembly does not have a strong name. -->
     <NoWarn>$(NoWarn);CS8002</NoWarn>
 
-    <!-- Added for .net9.0 support. XAML bindings and Nuget vulnerability data not found -->
-    <NoWarn>$(NoWarn);XC0025;NU1900</NoWarn>
+    <!-- Warnings started in net9. Editorconfig's files as additional files is no longer needed -->
+    <NoWarn>$(NoWarn);XUA1001;AD0001</NoWarn>
+
     <BuildingInCI Condition=" '$(CI)' == 'true' or '$(TF_BUILD)' == 'true' ">true</BuildingInCI>
     <DefineConstants Condition=" '$(BuildingInCI)' == 'true'">$(DefineConstants);NV_BUILD_CI</DefineConstants>
     <Configurations>Debug;Release;Debug-Windows;Release-Windows;Debug-MacOS;Release-MacOS</Configurations>
@@ -16,17 +19,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <!-- Warnings started in net9.0-->
-    <NoWarn>$(NoWarn);XUA1001;AD0001</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <BaseIntermediateOutputPath>$(RepoRootPath)obj\$([MSBuild]::MakeRelative($(RepoRootPath), $(MSBuildProjectDirectory)))\</BaseIntermediateOutputPath>
     <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('net6')) Or $(TargetFramework.StartsWith('net4')) Or $(TargetFramework.StartsWith('netcoreapp'))">
-    <!-- Suppress target framework support warnings on net472, and net6.0 netcoreapp3.1 -->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net6')) Or $(TargetFramework.StartsWith('net4')) ">
+    <!-- Suppress target framework support warnings on net472 and net6.0 -->
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 

@@ -50,9 +50,4 @@
     <SupportedOSPlatformVersion>6.5</SupportedOSPlatformVersion>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <!-- Runtime Identifier no longer produces a self contained app by default on net8 and net9 -->
-    <NoWarn>$(NoWarn);NETSDK1201</NoWarn>
-  </PropertyGroup>
-
 </Project>

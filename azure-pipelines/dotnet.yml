@@ -2,6 +2,7 @@ parameters:
   RunTests:
   RunDotNetFormat:
   ProductionBuild:
+  TestingTimeout: 
 
 steps:
 - script: dotnet format --verify-no-changes --verbosity diagnostic --binarylog:"$(Build.ArtifactStagingDirectory)/build_logs/format.binlog"
@@ -11,9 +12,10 @@ steps:
 - script: dotnet build -t:build,pack --no-restore -c $(BuildConfiguration) -warnAsError -warnNotAsError:NU1901,NU1902,NU1903,NU1904 /bl:"$(Build.ArtifactStagingDirectory)/build_logs/build.binlog" -property:ProductionBuild=${{ parameters.ProductionBuild }}
   displayName: 🛠 dotnet build
 
-- powershell: tools/dotnet-test-cloud.ps1 -Configuration $(BuildConfiguration) -Agent $(Agent.JobName) -ProductionBuild ${{ parameters.ProductionBuild }} -PublishResults
+- powershell: tools/dotnet-test-cloud.ps1 -Configuration $(BuildConfiguration) -Agent $(Agent.JobName) -PublishResults -ProductionBuild ${{ parameters.ProductionBuild }}
   displayName: 🧪 dotnet test
   condition: and(succeeded(), ${{ parameters.RunTests }})
+  timeoutInMinutes: ${{ parameters.TestingTimeout }}
 
 - powershell: tools/variables/_define.ps1
   failOnStderr: true

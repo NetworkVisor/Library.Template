@@ -6,7 +6,10 @@ parameters:
   default: true
 - name: jobTimeout
   type: number
-  default: 60
+  default: 70
+- name: TestingTimeout
+  type: number
+  default: 40
 - name: ProductionBuild
 - name: XCodePath
 - name: WindowsAgentPool
@@ -61,6 +64,7 @@ jobs:
       RunTests: ${{ parameters.RunTests }}
       ProductionBuild: ${{ parameters.ProductionBuild }}
       RunDotNetFormat: ${{ parameters.RunDotNetFormatWin }}
+      TestingTimeout: ${{ parameters.TestingTimeout }}
 
 - job: macOS
   condition: ${{ parameters.includeMacOS }}
@@ -77,14 +81,6 @@ jobs:
   - checkout: self
     fetchDepth: 0 # avoid shallow clone so nbgv can do its work.
     clean: true
-  - script: |
-      export ANDROID_HOME=$HOME/Library/Android/sdk
-      export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/build-tools/35.0.0:$ANDROID_HOME/platform-tools:$PATH
-      mkdir -p $ANDROID_HOME/cmdline-tools/latest
-      mkdir -p $ANDROID_HOME/build-tools
-      sdkmanager --install "cmdline-tools;latest" "platform-tools" "build-tools;35.0.0" "platforms;android-35"
-      yes | sdkmanager --licenses
-    displayName: "Install Android SDK and Build Tools"
   - template: install-dependencies.yml
     parameters:
       initArgs: -WorkloadRestore
@@ -109,13 +105,6 @@ jobs:
     displayName: ⚙ Install IOS Apple Certificate
     inputs:
       certSecureFile: 'SteveBushIOSDeviceTestSigningID.p12'
-      certPwd: ${{ parameters.CertSecurePwd }}
-    continueOnError: true
-
-  - task: InstallAppleCertificate@2
-    displayName: ⚙ Install MacCatalyst Apple Certificate
-    inputs:
-      certSecureFile: 'SteveBushMacCatalystDeviceTestSigningID.p12'
       certPwd: ${{ parameters.CertSecurePwd }}
     continueOnError: true
 
@@ -148,6 +137,7 @@ jobs:
       RunTests: ${{ parameters.RunTests }}
       ProductionBuild: ${{ parameters.ProductionBuild }}
       RunDotNetFormat: ${{ parameters.RunDotNetFormatMac }}
+      TestingTimeout: ${{ parameters.TestingTimeout }}
 
 - job: WrapUp
   timeoutInMinutes: ${{ parameters.jobTimeout }}

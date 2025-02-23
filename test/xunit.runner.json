@@ -4,5 +4,6 @@
   "shadowCopy": false,
   "longRunningTestSeconds": 0,
   "diagnosticMessages": true,
-  "parallelizeAssembly": true
+  "parallelizeAssembly": true,
+  "preEnumerateTheories":  true
 }
