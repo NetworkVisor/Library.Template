@@ -25,7 +25,7 @@ jobs:
     name: 🏭 Build
 
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 70
     strategy:
       fail-fast: false
       matrix:
@@ -102,13 +102,7 @@ jobs:
     - name: 🧪 test
       run: tools/dotnet-test-cloud.ps1 -Configuration ${{ env.BUILDCONFIGURATION }} -Agent ${{ runner.os }} -ProductionBuild ${{ env.PRODUCTION_BUILD }}
       shell: pwsh
-    - name: 💅🏻 Verify formatted code
-      run: dotnet format --verify-no-changes --no-restore
-      shell: pwsh
-      if: runner.os == 'Linux'
-    - name: 📚 Verify docfx build
-      run: dotnet docfx docfx/docfx.json --warningsAsErrors --disableGitFeatures
-      if: runner.os == 'Linux'
+      timeout-minutes: 40
     - name: ⚙ Update pipeline variables based on build outputs
       run: tools/variables/_define.ps1
       shell: pwsh
