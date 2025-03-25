@@ -5,6 +5,8 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <!-- TODO: Remove after fixing all test cancellation tokens -->
+    <NoWarn>$(NoWarn);xUnit1051</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
@@ -13,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="JetBrains.Annotations" />
   </ItemGroup>
 
   <ItemGroup>
