@@ -28,7 +28,7 @@ parameters:
   default: 'Testing' 
 - name: XCodePath
   type: string
-  default: '/Applications/Xcode_16.2.app' 
+  default: '/Applications/Xcode_16.4.app' 
 - name: WindowsAgentPool
   displayName: Build Pool for Windows host
   type: string

@@ -23,9 +23,14 @@
     <BaseOutputPath Condition=" '$(BaseOutputPath)' == '' ">$(RepoRootPath)bin\$(MSBuildProjectName)\</BaseOutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('net6')) Or $(TargetFramework.StartsWith('net4')) ">
-    <!-- Suppress target framework support warnings on net472 and net6.0 -->
+  <!-- Suppress target framework support warnings on net472 -->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+  </PropertyGroup>
+
+  <!-- Use HangFire on non-net472 target platforms -->
+  <PropertyGroup Condition="!$(TargetFramework.StartsWith('net4'))">
+    <DefineConstants>$(DefineConstants);NV_USE_HANGFIRE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -74,11 +79,6 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols Condition=" '$(DebugType)' != 'embedded' ">true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <LangVersion Condition="'$(MSBuildProjectExtension)'=='.csproj'">13</LangVersion>
-    <LangVersion Condition="'$(MSBuildProjectExtension)'=='.vbproj'">16.9</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
