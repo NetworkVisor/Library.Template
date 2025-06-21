@@ -65,6 +65,7 @@ jobs:
       ProductionBuild: ${{ parameters.ProductionBuild }}
       RunDotNetFormat: ${{ parameters.RunDotNetFormatWin }}
       TestingTimeout: ${{ parameters.TestingTimeout }}
+  - template: expand-template.yml
 
 - job: macOS
   condition: ${{ parameters.includeMacOS }}
