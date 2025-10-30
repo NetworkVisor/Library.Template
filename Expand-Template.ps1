@@ -99,7 +99,7 @@ try {
     git config core.safecrlf false # Avoid warnings when adding files with mangled line endings
 
     # Rename project directories and solution
-    git mv Library.sln "$LibraryName.sln"
+    git mv Library.slnx "$LibraryName.slnx"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     git mv src/Library/Library.csproj "src/Library/$LibraryName.csproj"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
@@ -119,7 +119,7 @@ try {
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     dotnet sln add "test/$LibraryName.Tests"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    git add "$LibraryName.sln"
+    git add "$LibraryName.slnx"
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
     # Update project reference in test project. Add before removal to keep the same ItemGroup in place.
