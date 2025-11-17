@@ -2,7 +2,7 @@
 
 ***An awesome template for your awesome library***
 
-[![NuGet package](https://img.shields.io/nuget/v/NetworkVisor.Platform.svg)](https://nuget.org/packages/NetworkVisor.Platform)
+
 
 
 ## Features

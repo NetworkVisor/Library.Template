@@ -25,18 +25,18 @@ parameters:
   default: true
 - name: ProductionBuild
   type: string
-  default: 'Testing' 
+  default: 'Testing'
 - name: XCodePath
   type: string
-  default: '/Applications/Xcode_26.1.app' 
+  default: '/Applications/Xcode_26.1_Release_Candidate.app'
 - name: WindowsAgentPool
   displayName: Build Pool for Windows host
   type: string
-  default: 'Local Windows'  
+  default: 'Local Windows'
 - name: MacAgentPool
   displayName: Build Pool for macOS host
   type: string
-  default: '' 
+  default: ''
 - name: CertSecurePwd
   displayName: Password for Apple certificate
   type: string
@@ -49,7 +49,7 @@ parameters:
   displayName: Run dotnet format on macos
   type: boolean
   default: false
-  
+
 variables:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   ci_feed: 'https://pkgs.dev.azure.com/NetworkVisor/_packaging/networkvisor-eng/nuget/v3/index.json'
@@ -67,4 +67,3 @@ jobs:
     CertSecurePwd: ${{ parameters.CertSecurePwd }}
     RunDotNetFormatWin: ${{ parameters.RunDotNetFormatWin }}
     RunDotNetFormatMac: ${{ parameters.RunDotNetFormatMac }}
-    

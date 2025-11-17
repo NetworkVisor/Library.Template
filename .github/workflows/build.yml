@@ -17,7 +17,7 @@ env:
   NUGET_NAME: 'networkvisor-eng'
   NUGET_URL: 'https://pkgs.dev.azure.com/NetworkVisor/_packaging/networkvisor-eng/nuget/v3/index.json'
   RUN_DOTNET_FORMAT: false
-  ARTIFACT_RETENTION_DAYS: 15 
+  ARTIFACT_RETENTION_DAYS: 15
 
 jobs:
   build:
@@ -41,13 +41,13 @@ jobs:
         xcode-version: '26.1.0'
       if: runner.os == 'macOS'
 
-    - name: Install OpenJDK v21 on Windows
+    - name: Install OpenJDK on Windows
       uses: actions/setup-java@v4
       with:
         distribution: 'microsoft'
         java-version: '21'
       if: runner.os == 'Windows'
-    - name: Install OpenJDK v21 on Mac
+    - name: Install OpenJDK on Mac
       uses: actions/setup-java@v4
       with:
         distribution: 'microsoft'
