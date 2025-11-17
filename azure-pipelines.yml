@@ -52,8 +52,6 @@ parameters:
   
 variables:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-
-  codecov_token: '5a7f688f-2863-461e-b3aa-8c65c41b4159'
   ci_feed: 'https://pkgs.dev.azure.com/NetworkVisor/_packaging/networkvisor-eng/nuget/v3/index.json'
   NUGET_PACKAGES: $(Agent.TempDirectory)/.nuget/packages/
 
