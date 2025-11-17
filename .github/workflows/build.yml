@@ -30,8 +30,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-        - windows-2022
-        - macos-15
+        - windows-2025
+        - macos-26
 
     steps:
     - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
@@ -39,7 +39,7 @@ jobs:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '26.0.1'
+        xcode-version: '26.1.0'
       if: runner.os == 'macOS'
 
     - name: Install OpenJDK v21 on Windows
@@ -55,9 +55,9 @@ jobs:
         java-version: '21'
       if: runner.os == 'macOS'
     - name: Setup Android SDK
-      uses: amyu/setup-android@v4
+      uses: amyu/setup-android@v5
       with:
-        sdk-version: 35
+        sdk-version: 36
       if: runner.os == 'macOS'
     - name: Set build configuration on Mac
       run: echo "BUILDCONFIGURATION=Release-MacOS" >> $GITHUB_ENV
@@ -71,9 +71,9 @@ jobs:
       run: echo ${{ env.PRODUCTION_BUILD }}
     - name: ⚙ Install prerequisites on Windows
       run: |
-        ./init.ps1 -UpgradePrerequisites -WorkloadRestore -UpdateNugetSourceName: ${{ env.NUGET_NAME }} -UpdateNugetSourcePath: ${{ env.NUGET_URL }} -UpdateNugetUserName: NetworkVisor -UpdateNugetPassword: ${{ secrets.NETWORKVISOR_BUILD_PAT }} 
+        ./init.ps1 -UpgradePrerequisites -WorkloadRestore -UpdateNugetSourceName: ${{ env.NUGET_NAME }} -UpdateNugetSourcePath: ${{ env.NUGET_URL }} -UpdateNugetUserName: NetworkVisor -UpdateNugetPassword: ${{ secrets.NETWORKVISOR_BUILD_PAT }}
         dotnet --info
-        
+
         # Print mono version if it is present.
         if (Get-Command mono -ErrorAction SilentlyContinue) {
           mono --version

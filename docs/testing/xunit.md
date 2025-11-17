@@ -1,6 +1,6 @@
 ### TestAssemblyFixture
     + PipelineStage	                                            TestAssemblyExecution
-    + TestAssembly                                              { assembly = "D:\\Github\\NetworkVisor\\Platform\\bin\\NetworkVisor.Platform.Test.NetCore.IntegrationTests\\Debug\\net9.0\\NetworkVisor.Platform.Test.NetCore.IntegrationTests.dll", config = null, id = "6fd850b2a9cf6ec6b111b7a36afb69e30a64c5433e042a151f28f9e2888e1053" }
+    + TestAssembly                                              { assembly = "D:\\Github\\NetworkVisor\\Platform\\bin\\NetworkVisor.Platform.Test.NetCore.IntegrationTests\\Debug\\net10.0\\NetworkVisor.Platform.Test.NetCore.IntegrationTests.dll", config = null, id = "6fd850b2a9cf6ec6b111b7a36afb69e30a64c5433e042a151f28f9e2888e1053" }
     + TestAssemblyStatus                                        Initializing
     + Assembly                                                  TestAssembly.Assembly NetworkVisor.Platform.Test.NetCore.IntegrationTests.dll
     + testCancellationTokenSource	                            {System.Threading.CancellationTokenSource}

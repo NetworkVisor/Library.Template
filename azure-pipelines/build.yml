@@ -33,7 +33,7 @@ jobs:
 - job: Windows
   pool:
     ${{ if eq(parameters.WindowsAgentPool, '') }}:
-        vmImage: windows-2022
+        vmImage: windows-latest
     ${{ if ne(parameters.WindowsAgentPool, '') }}:
         name: ${{ parameters.WindowsAgentPool }}
   timeoutInMinutes: ${{ parameters.jobTimeout }}
@@ -146,7 +146,7 @@ jobs:
   - Windows
   - macOS
   pool:
-    vmImage: windows-2022
+    vmImage: windows-latest
   condition: succeededOrFailed()
   variables:
     BuildConfiguration: Release-Windows
