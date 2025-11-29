@@ -65,12 +65,11 @@ jobs:
       ProductionBuild: ${{ parameters.ProductionBuild }}
       RunDotNetFormat: ${{ parameters.RunDotNetFormatWin }}
       TestingTimeout: ${{ parameters.TestingTimeout }}
-  - template: expand-template.yml
 
 - job: macOS
   condition: ${{ parameters.includeMacOS }}
   timeoutInMinutes: ${{ parameters.jobTimeout }}
-  
+
   pool:
     ${{ if eq(parameters.MacAgentPool, '') }}:
         vmImage: macOS-15
@@ -82,17 +81,16 @@ jobs:
   - checkout: self
     fetchDepth: 0 # avoid shallow clone so nbgv can do its work.
     clean: true
-  - template: install-dependencies.yml
-    parameters:
-      initArgs: -WorkloadRestore
   - script: |
       sudo xcode-select -p
       echo "##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]${{ parameters.XCodePath }}"
-      sudo xcode-select --switch "${{ parameters.XCodePath }}/Contents/Developer"
+      sudo xcode-select --switch "${{ parameters.XCodePath }}"
       sudo xcode-select -p
     displayName: Sets xcode path
     condition: ${{ eq(parameters.MacAgentPool, '') }}
-
+  - template: install-dependencies.yml
+    parameters:
+      initArgs: -WorkloadRestore
   - script: java --version
     displayName: ⚙ Java version
 

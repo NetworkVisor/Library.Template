@@ -7,7 +7,7 @@
     <NetworkVisorVersion>4.4.70-beta</NetworkVisorVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Azure.Identity" Version="1.17.0" />
+    <PackageVersion Include="Azure.Identity" Version="1.17.1" />
     <PackageVersion Include="Azure.Monitor.OpenTelemetry.Exporter" Version="1.5.0" />
     <PackageVersion Include="Azure.Security.KeyVault.Secrets" Version="4.8.0" />
     <PackageVersion Include="BouncyCastle.Cryptography" Version="2.6.2" />
@@ -16,7 +16,6 @@
     <PackageVersion Include="Hangfire.Core" Version="1.8.22" />
     <PackageVersion Include="Hangfire.NetCore" Version="1.8.22" />
     <PackageVersion Include="Hangfire.Storage.SQLite" Version="0.4.2" />
-    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.2" />
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Bcl.HashCode" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Bcl.TimeProvider" Version="10.0.0" />
@@ -27,9 +26,9 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="10.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
-    <PackageVersion Include="Microsoft.Identity.Client" Version="4.79.1" />
-    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.10" />
+    <PackageVersion Include="Microsoft.Identity.Client" Version="4.79.2" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.11" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="MQTTnet" Version="4.3.7.1207" />
@@ -50,10 +49,10 @@
     <PackageVersion Include="Paramore.Darker.Policies" Version="4.1.1" />
     <PackageVersion Include="Paramore.Darker.QueryLogging" Version="4.1.1" />
     <PackageVersion Include="Plugin.CurrentActivity" Version="2.1.0.4" />
-    <PackageVersion Include="Polly" Version="8.6.4" />
-    <PackageVersion Include="Polly.Extensions" Version="8.6.4" />
+    <PackageVersion Include="Polly" Version="8.6.5" />
+    <PackageVersion Include="Polly.Extensions" Version="8.6.5" />
     <PackageVersion Include="Polly.Extensions.Http" Version="3.0.0" />
-    <PackageVersion Include="Polly.RateLimiting" Version="8.6.4" />
+    <PackageVersion Include="Polly.RateLimiting" Version="8.6.5" />
     <PackageVersion Include="SpotifyAPI.Web" Version="7.0.2" />
     <PackageVersion Include="SpotifyAPI.Web.Auth" Version="7.0.2" />
     <PackageVersion Include="SSDP.UPnP.PCL" Version="6.1.0" />
@@ -68,11 +67,11 @@
     <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="10.0.0" />
     <PackageVersion Include="WindowsFirewallHelper" Version="2.2.0.86" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
-    <PackageVersion Include="xunit.v3" Version="3.2.0" />
-    <PackageVersion Include="xunit.v3.assert" Version="3.2.0" />
-    <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.0" />
-    <PackageVersion Include="xunit.v3.runner.inproc.console" Version="3.2.0" />
-    <PackageVersion Include="xunit.v3.runner.utility" Version="3.2.0" />
+    <PackageVersion Include="xunit.v3" Version="3.2.1" />
+    <PackageVersion Include="xunit.v3.assert" Version="3.2.1" />
+    <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.1" />
+    <PackageVersion Include="xunit.v3.runner.inproc.console" Version="3.2.1" />
+    <PackageVersion Include="xunit.v3.runner.utility" Version="3.2.1" />
   </ItemGroup>
   <ItemGroup>
     <GlobalPackageReference Include="CSharpIsNullAnalyzer" Version="0.1.593" />

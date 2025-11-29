@@ -18,6 +18,10 @@ env:
   NUGET_URL: 'https://pkgs.dev.azure.com/NetworkVisor/_packaging/networkvisor-eng/nuget/v3/index.json'
   RUN_DOTNET_FORMAT: false
   ARTIFACT_RETENTION_DAYS: 15
+  BUILD_PROVISION_IOS_BASE64: ${{ secrets.NETWORKVISORPLATFORMTESTDEVICESIOSDEVELOPMENT }}
+  BUILD_PROVISION_MACCATALYST_BASE64: ${{ secrets.NETWORKVISORPLATFORMTESTDEVICESMACCATALYSTDEVELOPMENT }}
+  BUILD_PROVISION_MACOS_UNIT_TEST_BASE64: ${{ secrets.NETWORKVISORPLATFORMMACOSUNITTEST }}
+  BUILD_PROVISION_MACOS_INTEGRATION_TEST_BASE64: ${{ secrets.NETWORKVISORPLATFORMMACOSINTEGRATIONTEST }}
 
 jobs:
   build:
@@ -33,12 +37,12 @@ jobs:
         - macos-26
 
     steps:
-    - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+    - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
       with:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
     - uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '26.1.0'
+        xcode-version: '26.1.1'
       if: runner.os == 'macOS'
 
     - name: Install OpenJDK on Windows
@@ -68,6 +72,38 @@ jobs:
       run: echo ${{ env.BUILDCONFIGURATION }}
     - name: Verify production build
       run: echo ${{ env.PRODUCTION_BUILD }}
+
+    - name: ⚙️ Install IOS Signing Certificate
+      uses: apple-actions/import-codesign-certs@v2
+      with:
+        p12-file-base64: ${{ secrets.STEVEBUSHIOSDEVICETESTSIGNINGID }}
+        p12-password: ${{ secrets.APPLE_CERTIFICATE_PWD }}
+        keychain: 'signing_temp_ios'
+      if: runner.os == 'macOS'
+
+    - name: ⚙️ Install Provisioning Profiles
+      run: |
+        # create variables
+        PP_PATH_IOS=$RUNNER_TEMP/NetworkVisorPlatformTestDevicesIOS_Development.mobileprovision
+        PP_PATH_MACCATALYST=$RUNNER_TEMP/NetworkVisorPlatformTestDevicesMacCatalyst_Development.provisionprofile
+        PP_PATH_MACOS_UNIT_TEST=$RUNNER_TEMP/Network_Visor_MacOS_Unit_Tests_Profile.provisionprofile
+        PP_PATH_MACOS_INTEGRATION_TEST=$RUNNER_TEMP/Network_Visor_MacOS_Integration_Tests_Profile.provisionprofile
+
+        # Produce provision profiles from Secrets
+        echo -n "$BUILD_PROVISION_IOS_BASE64" | base64 --decode -o $PP_PATH_IOS
+        echo -n "$BUILD_PROVISION_MACCATALYST_BASE64" | base64 --decode -o $PP_PATH_MACCATALYST
+        echo -n "$BUILD_PROVISION_MACOS_UNIT_TEST_BASE64" | base64 --decode -o $PP_PATH_MACOS_UNIT_TEST
+        echo -n "$BUILD_PROVISION_MACOS_INTEGRATION_TEST_BASE64" | base64 --decode -o $PP_PATH_MACOS_INTEGRATION_TEST
+
+        # copy provisioning profile
+        mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+        cp $PP_PATH_IOS ~/Library/MobileDevice/Provisioning\ Profiles
+        cp $PP_PATH_MACCATALYST ~/Library/MobileDevice/Provisioning\ Profiles
+        cp $PP_PATH_MACOS_UNIT_TEST ~/Library/MobileDevice/Provisioning\ Profiles
+        cp $PP_PATH_MACOS_INTEGRATION_TEST ~/Library/MobileDevice/Provisioning\ Profiles
+
+      if: runner.os == 'macOS'
+
     - name: ⚙ Install prerequisites on Windows
       run: |
         ./init.ps1 -UpgradePrerequisites -WorkloadRestore -UpdateNugetSourceName: ${{ env.NUGET_NAME }} -UpdateNugetSourcePath: ${{ env.NUGET_URL }} -UpdateNugetUserName: NetworkVisor -UpdateNugetPassword: ${{ secrets.NETWORKVISOR_BUILD_PAT }}
@@ -121,11 +157,20 @@ jobs:
       continue-on-error: true
       run: |
         dotnet nuget remove source networkvisor-eng
+    - name: Cleanup Apple Provisioning
+      if: runner.os == 'macOS'
+      continue-on-error: true
+      run: |
+        security delete-keychain ~Library/Keychains/signing_temp_ios.keychain-db
+        rm ~/Library/MobileDevice/Provisioning\ Profiles/NetworkVisorPlatformTestDevicesIOS_Development.mobileprovision
+        rm ~/Library/MobileDevice/Provisioning\ Profiles/NetworkVisorPlatformTestDevicesMacCatalyst_Development.provisionprofile
+        rm ~/Library/MobileDevice/Provisioning\ Profiles/Network_Visor_MacOS_Unit_Tests_Profile.provisionprofile
+        rm ~/Library/MobileDevice/Provisioning\ Profiles/Network_Visor_MacOS_Integration_Tests_Profile.provisionprofile
   docs:
     name: 📃 Docs
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+    - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
     - name: 🔗 Markup Link Checker (mlc)
       uses: becheran/mlc@18a06b3aa2901ca197de59c8b0b1f54fdba6b3fa # v1.0.0
       with:
