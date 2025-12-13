@@ -37,7 +37,7 @@ jobs:
         - macos-26
 
     steps:
-    - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       with:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
     - uses: maxim-lobanov/setup-xcode@v1
@@ -170,8 +170,8 @@ jobs:
     name: 📃 Docs
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
+    - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
     - name: 🔗 Markup Link Checker (mlc)
-      uses: becheran/mlc@18a06b3aa2901ca197de59c8b0b1f54fdba6b3fa # v1.0.0
+      uses: becheran/mlc@6fa3bddc1a921454b7840df30b343f6415bc8d35 # v1.1.0
       with:
         args: --do-not-warn-for-redirect-to https://learn.microsoft.com*,https://dotnet.microsoft.com/*,https://dev.azure.com/*,https://app.codecov.io/* -p docfx -i https://www.npmjs.com/package/*,https://get.dot.net/

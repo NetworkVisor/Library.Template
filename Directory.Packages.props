@@ -5,9 +5,11 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     <NetworkVisorVersion>4.4.70-beta</NetworkVisorVersion>
+    <MicrosoftTestingPlatformVersion>2.0.2</MicrosoftTestingPlatformVersion>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageVersion Include="Azure.Identity" Version="1.17.1" />
+    <ItemGroup>
+    <!-- Put repo-specific PackageVersion items in this group. -->
+	<PackageVersion Include="Azure.Identity" Version="1.17.1" />
     <PackageVersion Include="Azure.Monitor.OpenTelemetry.Exporter" Version="1.5.0" />
     <PackageVersion Include="Azure.Security.KeyVault.Secrets" Version="4.8.0" />
     <PackageVersion Include="BouncyCastle.Cryptography" Version="2.6.2" />
@@ -67,11 +69,17 @@
     <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="10.0.0" />
     <PackageVersion Include="WindowsFirewallHelper" Version="2.2.0.86" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
-    <PackageVersion Include="xunit.v3" Version="3.2.1" />
     <PackageVersion Include="xunit.v3.assert" Version="3.2.1" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.1" />
     <PackageVersion Include="xunit.v3.runner.inproc.console" Version="3.2.1" />
     <PackageVersion Include="xunit.v3.runner.utility" Version="3.2.1" />
+  </ItemGroup>
+  <ItemGroup Label="Library.Template">
+    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.1.0" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.CrashDump" Version="$(MicrosoftTestingPlatformVersion)" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.HangDump" Version="$(MicrosoftTestingPlatformVersion)" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="$(MicrosoftTestingPlatformVersion)" />
+    <PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.1" />
   </ItemGroup>
   <ItemGroup>
     <GlobalPackageReference Include="CSharpIsNullAnalyzer" Version="0.1.593" />

@@ -5,8 +5,7 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <!-- TODO: Remove after fixing all test cancellation tokens -->
-    <NoWarn>$(NoWarn);xUnit1051</NoWarn>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">

@@ -1,5 +1,4 @@
 # Refer to https://hub.docker.com/_/microsoft-dotnet-sdk for available versions
-# docker inspect mcr.microsoft.com/dotnet/sdk:10.0.101
 FROM mcr.microsoft.com/dotnet/sdk:10.0.101@sha256:d1823fecac3689a2eb959e02ee3bfe1c2142392808240039097ad70644566190
 
 # Installing mono makes `dotnet test` work without errors even for net472.
