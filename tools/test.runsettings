@@ -12,7 +12,10 @@
               <Exclude>
                 <ModulePath>xunit\..*</ModulePath>
                 <ModulePath>System\..*</ModulePath>
+                <ModulePath>Hangfire\..*</ModulePath>
                 <ModulePath>Moq\..*</ModulePath>
+                <ModulePath>Paramore\..*</ModulePath>
+                <ModulePath>WindowsFirewallHelper\..*</ModulePath>
               </Exclude>
             </ModulePaths>
             <Attributes>

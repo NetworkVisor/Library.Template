@@ -54,7 +54,7 @@ $testLogs = Join-Path $ArtifactStagingFolder test_logs
 $globalJson = Get-Content $PSScriptRoot/../global.json | ConvertFrom-Json
 $isMTP = $globalJson.test.runner -eq 'Microsoft.Testing.Platform'
 $extraArgs = @()
-$extraArgs += '-property:ProductionBuild=$ProductionBuild'
+$extraArgs += "-property:ProductionBuild=$ProductionBuild"
 
 if ($isMTP) {
     if ($OnCI) { $extraArgs += '--no-progress' }
