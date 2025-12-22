@@ -5,6 +5,7 @@
     <DefineConstants>$(DefineConstants);NV_PLAT_MACCATALYST;NV_PLAT_MOBILE</DefineConstants>
     <RuntimeIdentifier>maccatalyst-x64</RuntimeIdentifier>
     <RuntimeIdentifier Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'arm64'">maccatalyst-arm64</RuntimeIdentifier>
+    <UseHardenedRuntime>true</UseHardenedRuntime>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">

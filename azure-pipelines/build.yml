@@ -72,7 +72,7 @@ jobs:
 
   pool:
     ${{ if eq(parameters.MacAgentPool, '') }}:
-        vmImage: macOS-15
+        vmImage: macos-latest
     ${{ if ne(parameters.MacAgentPool, '') }}:
         name: ${{ parameters.MacAgentPool }}
   variables:
@@ -86,7 +86,8 @@ jobs:
       echo "##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]${{ parameters.XCodePath }}"
       sudo xcode-select --switch "${{ parameters.XCodePath }}"
       sudo xcode-select -p
-    displayName: Sets xcode path
+      sudo xcodebuild -showsdks
+    displayName: Sets XCode path
     condition: ${{ eq(parameters.MacAgentPool, '') }}
   - template: install-dependencies.yml
     parameters:
