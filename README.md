@@ -2,9 +2,6 @@
 
 ***An awesome template for your awesome library***
 
-
-
-
 ## Features
 
 * Follow the best and simplest patterns of build, pack and test with dotnet CLI.

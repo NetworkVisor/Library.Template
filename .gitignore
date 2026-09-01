@@ -361,3 +361,6 @@ MigrationBackup/
 
 # dev directory
 .dev/
+
+# C# Dev Kit cache files
+*.lscache
